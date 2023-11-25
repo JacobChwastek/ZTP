@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace lab2.Domain.Bdd.Tests.Features
+namespace Ztp.Domain.Bdd.Tests.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -31,7 +31,7 @@ namespace lab2.Domain.Bdd.Tests.Features
 #line 1 "Products.feature"
 #line hidden
         
-        public ProductsFeature(ProductsFeature.FixtureData fixtureData, lab2_Domain_Bdd_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public ProductsFeature(ProductsFeature.FixtureData fixtureData, Ztp_Domain_Bdd_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();

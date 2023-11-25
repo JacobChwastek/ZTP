@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztp.Shared", "Ztp.Shared\Zt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztp.Shared.Abstractions", "Ztp.Shared.Abstractions\Ztp.Shared.Abstractions.csproj", "{E8059F8F-8857-4CA7-A97A-521C357F7B03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab2.Domain.Bdd.Tests", "tests\lab2.Domain.Bdd.Tests\lab2.Domain.Bdd.Tests.csproj", "{6048B0CE-5C56-4363-BEE3-F5945C8E6723}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztp.Domain.Bdd.Tests", "tests\Ztp.Domain.Bdd.Tests\Ztp.Domain.Bdd.Tests.csproj", "{6048B0CE-5C56-4363-BEE3-F5945C8E6723}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

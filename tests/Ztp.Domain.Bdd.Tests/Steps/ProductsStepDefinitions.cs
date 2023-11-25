@@ -2,7 +2,7 @@
 using TechTalk.SpecFlow.Assist;
 using Xunit;
 
-namespace lab2.Domain.Bdd.Tests.Steps;
+namespace Ztp.Domain.Bdd.Tests.Steps;
 
 [Binding]
 public sealed class ProductsStepDefinitions

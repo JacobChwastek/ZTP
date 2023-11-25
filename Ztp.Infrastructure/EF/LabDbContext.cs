@@ -7,7 +7,6 @@ public sealed class LabDbContext: DbContext
 {
     public LabDbContext(DbContextOptions<LabDbContext> options) : base(options)
     {
-        Database.EnsureCreated();
     }
 
     public DbSet<ProductDbModel> Products { get; set; }

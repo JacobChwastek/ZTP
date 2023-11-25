@@ -14,6 +14,7 @@ internal class ProductRepository(LabDbContext dbContext) : IProductRepository
 
     public async Task SaveProduct(Product product, CancellationToken cancellationToken = default)
     {
+        await _dbContext.Database.EnsureCreatedAsync(cancellationToken);
         var dbProduct =
             await _dbContext.Products.SingleOrDefaultAsync(x => x.Id == product.Id,
                 cancellationToken: cancellationToken);
@@ -57,6 +58,7 @@ internal class ProductRepository(LabDbContext dbContext) : IProductRepository
 
     public async Task<IReadOnlyList<Product>> BrowseProducts(CancellationToken cancellationToken = default)
     {
+        await _dbContext.Database.EnsureCreatedAsync(cancellationToken);
         var dbProducts = await _dbContext.Products.Include(productDbModel => productDbModel.Details)
             .ThenInclude(productDetailsDbModel => productDetailsDbModel!.Price)
             .ToListAsync(cancellationToken: cancellationToken);
@@ -79,6 +81,7 @@ internal class ProductRepository(LabDbContext dbContext) : IProductRepository
 
     public async Task<Product> GetProductById(Guid productId, CancellationToken cancellationToken = default)
     {
+        await _dbContext.Database.EnsureCreatedAsync(cancellationToken);
         var product = await _dbContext.Products.Include(productDbModel => productDbModel.Details)
             .ThenInclude(productDetailsDbModel => productDetailsDbModel!.Price)
             .SingleOrDefaultAsync(p => p.Id == productId, cancellationToken: cancellationToken);

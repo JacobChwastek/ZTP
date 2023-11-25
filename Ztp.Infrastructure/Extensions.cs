@@ -16,11 +16,11 @@ public static class Extensions
 
         var connectionString = options!.ConnectionString;
         var databaseName = options!.DatabaseName;
-
-        services.AddDbContext<LabDbContext>(options =>
+        
+        services.AddDbContext<LabDbContext>(context =>
         {
-            options.UseCosmos(connectionString, databaseName);
-            options.EnableSensitiveDataLogging();
+            context.UseCosmos(connectionString, databaseName);
+            context.EnableSensitiveDataLogging();
         });
         
         services.AddScoped<IProductRepository, ProductRepository>();

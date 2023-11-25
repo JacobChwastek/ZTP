@@ -6,7 +6,7 @@ public record Money
 {
     public decimal Amount { get; init; }
     public Currency Currency { get; }
-    
+
     public Money(decimal amount, Currency currency)
     {
         if (amount < 0)
