@@ -11,5 +11,11 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dc42a2c9_002De304_002D4905_002D8aab_002D4f91cb443dba/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Projects\Studia\ZTP\tests\Ztp.Domain.Bdd.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Ztp.Domain.Bdd.Tests&amp;gt;" /&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;Project Location="C:\Projects\Studia\ZTP\tests\Ztp.Domain.Bdd.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Ztp.Domain.Bdd.Tests&amp;gt;" /&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;xUnit::B2F63611-D694-430C-B259-830510C6DAD7::net8.0::Ztp.Api.Bdd.Tests.Features.ProductsApiFeature.GetProducts&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;Project Location="C:\Projects\Studia\ZTP\tests\Ztp.Api.Bdd.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Ztp.Api.Bdd.Tests&amp;gt;" /&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

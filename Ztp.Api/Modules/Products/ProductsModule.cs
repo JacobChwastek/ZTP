@@ -14,13 +14,13 @@ public class ProductsModule : IApiModule
 {
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/products", async (IQueryDispatcher queryDispatcher) =>
+        endpoints.MapGet("api/products", async (IQueryDispatcher queryDispatcher) =>
         {
             var products = await queryDispatcher.QueryAsync(new GetProductsQuery());
             return Results.Ok(products);
         });
 
-        endpoints.MapGet("/products/{productId}",
+        endpoints.MapGet("api/products/{productId}",
             async ([FromRoute] Guid productId, IQueryDispatcher queryDispatcher) =>
             {
                 var product = await queryDispatcher.QueryAsync(new GetProductQuery
@@ -31,15 +31,15 @@ public class ProductsModule : IApiModule
                 return Results.Ok(product);
             });
 
-        endpoints.MapPost("/products",
+        endpoints.MapPost("api/products",
             async ([FromBody] CreateProductCommand createProduct, ICommandDispatcher commandDispatcher) =>
             {
                 var productId = await commandDispatcher.DispatchAsync<CreateProductCommand, Guid>(createProduct);
 
-                return Results.Created($"/products/{productId}", createProduct);
+                return Results.Created($"api/products/{productId}", createProduct);
             }).AddEndpointFilter<ValidatorFilter<CreateProductCommand>>();
 
-        endpoints.MapPut("/products",
+        endpoints.MapPut("api/products",
                 async ([FromBody] UpdateProductCommand updateProduct, ICommandDispatcher commandDispatcher) =>
                 {
                     await commandDispatcher.DispatchAsync(updateProduct);
@@ -48,7 +48,7 @@ public class ProductsModule : IApiModule
                 })
             .AddEndpointFilter<ValidatorFilter<UpdateProductCommand>>();
 
-        endpoints.MapDelete("/products/{productId}",
+        endpoints.MapDelete("api/products/{productId}",
             async ([FromRoute] Guid productId, ICommandDispatcher commandDispatcher) =>
             {
                 await commandDispatcher.DispatchAsync(new DeleteProductCommand(productId));

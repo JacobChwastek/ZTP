@@ -16,7 +16,7 @@ public class GetProductsQueryHandler(IProductRepository productRepository): IQue
             ProductId = product.Id,
             Details = new ProductDetailsDto
             {
-                Price = product.Details?.Price ?? new Money(0, Currency.EUR),
+                Price =  product.Details?.Price != null ? new MoneyDto(product.Details?.Price) : new MoneyDto(),
                 Availability = product.Details?.Availability ?? false,
                 Name = product.Details?.Name ?? string.Empty,
                 Description = product.Details?.Description ?? string.Empty,

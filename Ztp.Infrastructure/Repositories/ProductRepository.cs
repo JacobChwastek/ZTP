@@ -15,20 +15,10 @@ internal class ProductRepository(LabDbContext dbContext) : IProductRepository
     public async Task SaveProduct(Product product, CancellationToken cancellationToken = default)
     {
         await _dbContext.Database.EnsureCreatedAsync(cancellationToken);
-        var dbProduct =
-            await _dbContext.Products.SingleOrDefaultAsync(x => x.Id == product.Id,
-                cancellationToken: cancellationToken);
+        var dbProduct = await _dbContext.Products.SingleOrDefaultAsync(x => x.Id == product.Id,
+            cancellationToken: cancellationToken);
 
-        var productDetailsDbModel = product.Details != null
-            ? new ProductDetailsDbModel
-            {
-                Price = product.Details.Price,
-                InventoryQuantity = product.Details.InventoryQuantity,
-                Description = product.Details.Description,
-                Availability = product.Details.Availability,
-                Name = product.Details.Name,
-            }
-            : null;
+        var productDetailsDbModel = product.Details ?? (ProductDetailsDbModel)product.Details;
 
         if (dbProduct is null)
         {
@@ -65,14 +55,7 @@ internal class ProductRepository(LabDbContext dbContext) : IProductRepository
 
         return dbProducts.Select(p => new Product(
                 p.Id,
-                new ProductDetails
-                {
-                    Availability = p.Details?.Availability ?? false,
-                    Description = p.Details?.Description ?? string.Empty,
-                    Name = p.Details?.Name ?? string.Empty,
-                    Price = p.Details?.Price ?? new Money(decimal.Zero, Currency.EUR),
-                    InventoryQuantity = p.Details?.InventoryQuantity ?? 0
-                },
+                p.Details,
                 p.CreatedAt,
                 p.UpdatedAt,
                 JsonConvert.DeserializeObject<List<ProductDetails>>(p.Changelog), p.Version))
@@ -82,28 +65,18 @@ internal class ProductRepository(LabDbContext dbContext) : IProductRepository
     public async Task<Product> GetProductById(Guid productId, CancellationToken cancellationToken = default)
     {
         await _dbContext.Database.EnsureCreatedAsync(cancellationToken);
-        var product = await _dbContext.Products.Include(productDbModel => productDbModel.Details)
+        var dbProduct = await _dbContext.Products.Include(productDbModel => productDbModel.Details)
             .ThenInclude(productDetailsDbModel => productDetailsDbModel!.Price)
             .SingleOrDefaultAsync(p => p.Id == productId, cancellationToken: cancellationToken);
 
 
-        if (product is null)
+        if (dbProduct is null)
         {
             throw new DoesNotExistException(nameof(Product), productId.ToString());
         }
 
-        var productDetails = new ProductDetails
-        {
-            Availability = product.Details?.Availability ?? false,
-            Description = product.Details?.Description ?? string.Empty,
-            Name = product.Details?.Name ?? string.Empty,
-            Price = product.Details?.Price ?? new Money(decimal.Zero, Currency.EUR),
-            InventoryQuantity = product.Details?.InventoryQuantity ?? 0
-        };
-        
-        var changeLog = JsonConvert.DeserializeObject<List<ProductDetails>>(product.Changelog);
+        var changeLog = JsonConvert.DeserializeObject<List<ProductDetails>>(dbProduct.Changelog);
 
-        return new Product(product.Id, productDetails, product.CreatedAt, product.UpdatedAt, changeLog,
-            product.Version);
+        return new Product(dbProduct.Id, (ProductDetails)dbProduct.Details, dbProduct.CreatedAt, dbProduct.UpdatedAt, changeLog, dbProduct.Version);
     }
 }
