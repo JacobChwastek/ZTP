@@ -18,7 +18,7 @@ public class ProductsModule : IApiModule
         {
             var products = await queryDispatcher.QueryAsync(new GetProductsQuery());
             return Results.Ok(products);
-        });
+        }).CacheOutput();
 
         endpoints.MapGet("api/products/{productId}",
             async ([FromRoute] Guid productId, IQueryDispatcher queryDispatcher) =>
@@ -29,7 +29,7 @@ public class ProductsModule : IApiModule
                 });
 
                 return Results.Ok(product);
-            });
+            }).CacheOutput(p => p.SetVaryByQuery(["productId"]));
 
         endpoints.MapPost("api/products",
             async ([FromBody] CreateProductCommand createProduct, ICommandDispatcher commandDispatcher) =>

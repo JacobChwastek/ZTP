@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Ztp.Mobile.ViewModels"
+             x:Class="Ztp.Mobile.Views.ProductListView">
+    <ContentPage.BindingContext>
+        <local:ProductListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <CollectionView ItemsSource="{Binding Products}"
+                        SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="5" BorderColor="LightGray" CornerRadius="10">
+                        <StackLayout>
+                            <Label Text="{Binding ProductDetails.Name}" FontAttributes="Bold" />
+                            <Label Text="{Binding ProductDetails.Description}" />
+                            <StackLayout Orientation="Horizontal" Spacing="10"> 
+                                <Label Text="{Binding ProductDetails.Price.Amount}" />
+                                <Label Text="{Binding ProductDetails.Price.Currency}" />
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical" Spacing="10" Margin="10">
+                                <Button Text="Delete"
+                                        BackgroundColor="Red"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProductListViewModel}}, Path=DeleteCommand}"
+                                        CommandParameter="{Binding .}"
+                                        FontSize="Small" Padding="5" />
+                                <Button Text="Edit"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProductListViewModel}}, Path=EditCommand}"
+                                        CommandParameter="{Binding .}"
+                                        FontSize="Small" Padding="5" />
+                                <Button Text="Details"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProductListViewModel}}, Path=DetailCommand}"
+                                        CommandParameter="{Binding .}"
+                                        FontSize="Small" Padding="5" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.Header>
+                <Frame>
+                    <Button Text="Add new"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProductListViewModel}}, Path=AddCommand}"
+                            CommandParameter="{Binding .}"
+                            FontSize="Small" 
+                            Padding="5" 
+                    />
+                </Frame>
+            </CollectionView.Header>
+        </CollectionView>
+    </ContentPage.Content>
+</ContentPage>

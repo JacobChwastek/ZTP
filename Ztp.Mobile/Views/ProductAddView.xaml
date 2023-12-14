@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Ztp.Mobile.ViewModels"
+             x:Class="Ztp.Mobile.Views.ProductAddView"
+             x:DataType="vm:ProductAddViewModel">
+
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <StackLayout Orientation="Vertical" Spacing="20" Margin="10">
+                <Label Text="Name:" FontAttributes="Bold" />
+                <Entry x:Name="NameEntry"
+                       Placeholder="Name"
+                       Text="{Binding SelectedProduct.Name, Mode=TwoWay}" />
+            </StackLayout>
+            <StackLayout Orientation="Vertical" Spacing="10" Margin="10">
+                <Label Text="Description:" FontAttributes="Bold" />
+
+                <Entry x:Name="DescriptionEntry"
+                       Placeholder="Description"
+                       Text="{Binding SelectedProduct.Description, Mode=TwoWay}" />
+            </StackLayout>
+            <StackLayout Orientation="Vertical" Spacing="10" Margin="10">
+                <Label Text="Quantity:" FontAttributes="Bold" />
+                <Entry PlaceholderColor="Gray" Text="{Binding SelectedProduct.Quantity, Mode=TwoWay}"
+                       Placeholder="Quantity" Keyboard="Numeric" BackgroundColor="WhiteSmoke">
+                </Entry>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Spacing="10" Margin="10">
+                <Entry MinimumWidthRequest="100" PlaceholderColor="Gray"
+                       Text="{Binding SelectedProduct.Price, Mode=TwoWay}"
+                       Placeholder="Price" Keyboard="Numeric" BackgroundColor="WhiteSmoke">
+                </Entry>
+                <Picker x:Name="Picker" Title="Currency" SelectedIndex="{Binding SelectedProduct.Currency, Mode=TwoWay}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>PLN</x:String>
+                            <x:String>EUR</x:String>
+                            <x:String>USD</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                
+            </StackLayout>
+            <Button Margin="10" Text="Save" Command="{Binding AddProductCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,5 +1,4 @@
-﻿using Ztp.Domain;
-using Ztp.Domain.Products;
+﻿using Ztp.Domain.Products;
 using Ztp.Domain.Repositories;
 using Ztp.Shared.Abstractions.Commands;
 

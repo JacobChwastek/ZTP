@@ -11,6 +11,10 @@ builder.Services.AddApiModules();
 builder.Services.AddShared();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddOutputCache(c =>
+{
+    c.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(30);
+});
 
 var app = builder.Build();
 
@@ -20,8 +24,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
 app.UseApiModules();
+app.UseHttpsRedirection();
+app.UseOutputCache();
 
 app.Run();

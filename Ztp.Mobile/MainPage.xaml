@@ -23,12 +23,12 @@
                 Style="{StaticResource SubHeadline}"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
-
+            
             <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
+                x:Name="NavigateToProductList"
+                Text="Product list" 
                 SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
+                Clicked="OnNavigateToProductsList"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>

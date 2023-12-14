@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Ztp.Mobile.ViewModels"
+             x:Class="Ztp.Mobile.Views.ProductDetailsView"
+             x:DataType="viewModels:ProductDetailsViewModel"
+             Title="Product Detail">
+    <StackLayout Padding="20">
+        <StackLayout Orientation="Horizontal" Spacing="10" Margin="10">
+            <Label Text="ProductId:" FontAttributes="Bold" />
+            <Label Text="{Binding SelectedProduct.ProductId}" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Spacing="10" Margin="10">
+            <Label Text="Created At:" FontAttributes="Bold" />
+            <Label Text="{Binding SelectedProduct.CreatedAt.Date}" />
+        </StackLayout>
+        <StackLayout Orientation="Vertical" Spacing="10" Margin="10">
+            <Label Text="Name:" FontAttributes="Bold" />
+            <Entry x:Name="NameEntry"
+                   Placeholder="Name"
+                   Text="{Binding SelectedProduct.ProductDetails.Name, Mode=TwoWay}" />
+        </StackLayout>
+        <StackLayout Orientation="Vertical" Spacing="10" Margin="10">
+            <Label Text="Description:" FontAttributes="Bold" />
+
+            <Entry x:Name="DescriptionEntry"
+                   Placeholder="Description"
+                   Text="{Binding SelectedProduct.ProductDetails.Description, Mode=TwoWay}" />
+        </StackLayout>
+        <StackLayout Orientation="Vertical" Spacing="10" Margin="10">
+            <Label Text="Quantity:" FontAttributes="Bold" />
+            <Entry PlaceholderColor="Gray" Text="{Binding SelectedProduct.ProductDetails.Quantity, Mode=TwoWay}"
+                   Placeholder="Quantity" Keyboard="Numeric" BackgroundColor="WhiteSmoke">
+            </Entry>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Spacing="10" Margin="10">
+            <Entry  MinimumWidthRequest="100" PlaceholderColor="Gray" Text="{Binding SelectedProduct.ProductDetails.Price.Amount, Mode=TwoWay}"
+                    Placeholder="Price" Keyboard="Numeric" BackgroundColor="WhiteSmoke">
+            </Entry>
+            <Picker x:Name="Picker" Title="Currency" SelectedItem="{Binding SelectedProduct.ProductDetails.Price.Currency, Mode=TwoWay}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>PLN</x:String>
+                        <x:String>EUR</x:String>
+                        <x:String>USD</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        </StackLayout>
+        <Button Margin="10" Text="Save" Command="{Binding SaveCommand}" />
+        <Button Margin="10" Text="Back to List" Command="{Binding BackCommand}" />
+    </StackLayout>
+</ContentPage>

@@ -1,6 +1,4 @@
-﻿using Ztp.Domain.Products;
-
-namespace Ztp.Application.Dto;
+﻿namespace Ztp.Application.Dto;
 
 public record ProductDetailsDto
 {
