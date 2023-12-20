@@ -4,7 +4,7 @@ public static class Extensions
 {
     private static readonly List<IApiModule> RegisteredModules = new();
 
-    public static IServiceCollection AddApiModules(this IServiceCollection services)
+    public static void AddApiModules(this IServiceCollection services)
     {
         var modules = typeof(IApiModule).Assembly
             .GetTypes()
@@ -16,17 +16,20 @@ public static class Extensions
         {
             RegisteredModules.Add(module);
         }
-
-        return services;
+        
+        services.AddOutputCache(c =>
+        {
+            c.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(30);
+        });
     }
 
-    public static WebApplication UseApiModules(this WebApplication app)
+    public static void UseApiModules(this WebApplication app)
     {
         foreach (var module in RegisteredModules)
         {
             module.MapEndpoints(app);
         }
-
-        return app;
+        
+        app.UseOutputCache();
     }
 }

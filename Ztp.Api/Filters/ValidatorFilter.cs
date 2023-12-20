@@ -14,6 +14,11 @@ public class ValidatorFilter<T>(IValidator<T> validator) : IEndpointFilter
             return await next(context);
         }
 
-        return Results.BadRequest(validationResult.Errors.Select(x => x.ErrorMessage));
+        return Results.BadRequest(validationResult.Errors
+            .GroupBy(x => x.PropertyName)
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(x => x.ErrorMessage).ToArray()
+            ));
     }
 }

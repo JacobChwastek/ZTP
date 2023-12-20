@@ -1,20 +1,16 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b26d608_002D6735_002D442c_002D9b29_002Def2ac42f4270/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Or&gt;&#xD;
-    &lt;Project Location="C:\Projects\Studia\ZTP\lab2\tests\lab2.Application.Bdd.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;lab2.Application.Bdd.Tests&amp;gt;" /&gt;&#xD;
-    &lt;Project Location="C:\Projects\Studia\ZTP\lab2\tests\lab2.Domain.Bdd.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;lab2.Domain.Bdd.Tests&amp;gt;" /&gt;&#xD;
-  &lt;/Or&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4f3fa60d_002D25c5_002D4156_002Dad43_002Deb0c1b0b4fe5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;tests&amp;gt;\&amp;lt;lab2.Application.Bdd.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::6048B0CE-5C56-4363-BEE3-F5945C8E6723::net8.0::Ztp.Domain.Bdd.Tests.Features.ProductsFeature&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dc42a2c9_002De304_002D4905_002D8aab_002D4f91cb443dba/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;
     &lt;Project Location="C:\Projects\Studia\ZTP\tests\Ztp.Domain.Bdd.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Ztp.Domain.Bdd.Tests&amp;gt;" /&gt;&#xD;
     &lt;TestAncestor&gt;&#xD;
       &lt;TestId&gt;xUnit::B2F63611-D694-430C-B259-830510C6DAD7::net8.0::Ztp.Api.Bdd.Tests.Features.ProductsApiFeature.GetProducts&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::A10832DF-EA43-47FF-B6D0-17747C9EA8DC::net8.0::Ztp.Api.Unit.Tests.ProductEndpointTests.GetProductsAsync_ShouldReturnProducts&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::2689C2E6-0047-4884-A9D0-57E729D1D0C1::net8.0::Ztp.Web.Unit.Tests.ProductControllerTests.Details_WithExistingId_ReturnsViewWithProduct&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::2689C2E6-0047-4884-A9D0-57E729D1D0C1::net8.0::Ztp.Web.Unit.Tests.ProductControllerTests.Details_WithNonExistingId_ReturnsNotFound&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::2689C2E6-0047-4884-A9D0-57E729D1D0C1::net8.0::Ztp.Web.Unit.Tests.ProductControllerTests.AddPost_WithValidModel_AddsProductAndRedirects&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::2689C2E6-0047-4884-A9D0-57E729D1D0C1::net8.0::Ztp.Web.Unit.Tests.ProductControllerTests.AddPost_WithInvalidModel_ReturnsViewWithModel&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
     &lt;Project Location="C:\Projects\Studia\ZTP\tests\Ztp.Api.Bdd.Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Ztp.Api.Bdd.Tests&amp;gt;" /&gt;&#xD;
   &lt;/Or&gt;&#xD;

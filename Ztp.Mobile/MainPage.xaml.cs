@@ -1,11 +1,7 @@
-﻿using Ztp.Mobile.Views;
-
-namespace Ztp.Mobile;
+﻿namespace Ztp.Mobile;
 
 public partial class MainPage : ContentPage
 {
-    int count = 0;
-
     public MainPage()
     {
         InitializeComponent();

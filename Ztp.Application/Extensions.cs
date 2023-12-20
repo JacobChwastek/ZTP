@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Ztp.Shared.Commands;
+﻿using Ztp.Shared.Commands;
 using Ztp.Shared.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;

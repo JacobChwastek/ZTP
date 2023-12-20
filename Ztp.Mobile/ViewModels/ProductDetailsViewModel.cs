@@ -34,7 +34,7 @@ public class ProductDetailsViewModel : ViewModelBase
     private async void SaveProduct()
     {
         Enum.TryParse<Currency>(SelectedProduct.ProductDetails.Price.Currency, out var currency);
-        await _productService.UpdateProductAsync(new UpdateProductRequest()
+        await _productService.UpdateProductAsync(new UpdateProductRequest
         {
             Currency = (int)currency,
             Description = SelectedProduct.ProductDetails.Description,

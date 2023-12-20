@@ -1,0 +1,62 @@
+﻿@model Ztp.Web.Models.Product;
+
+@{
+    ViewBag.Title = "Product Details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="container">
+    <!-- Product Details -->
+    <div class="row">
+        <div class="col-md-2"><strong>Product ID:</strong></div>
+        <div class="col-md-10">@Model.ProductId</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><strong>Created At:</strong></div>
+        <div class="col-md-10">@Model.CreatedAt.ToString("G")</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><strong>Updated At:</strong></div>
+        <div class="col-md-10">@Model.UpdatedAt.ToString("G")</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><strong>Version:</strong></div>
+        <div class="col-md-10">@Model.Version</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><strong>Name:</strong></div>
+        <div class="col-md-10">@Model.ProductDetails.Name</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><strong>Description:</strong></div>
+        <div class="col-md-10">@Model.ProductDetails.Description</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><strong>Quantity:</strong></div>
+        <div class="col-md-10">@Model.ProductDetails.Quantity</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><strong>Price:</strong></div>
+        <div class="col-md-10">@Model.ProductDetails.Price.Amount.ToString("C") (@Model.ProductDetails.Price.Currency)</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><strong>Availability:</strong></div>
+        <div class="col-md-10">@Model.ProductDetails.Availability</div>
+    </div>
+
+    <!-- Back to Index Button -->
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <a href="@Url.Action("Index", "Product")" class="btn btn-primary">Back to List</a>
+        </div>
+    </div>
+</div>

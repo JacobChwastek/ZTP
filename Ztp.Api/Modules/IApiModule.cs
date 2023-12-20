@@ -1,6 +1,6 @@
 ﻿namespace Ztp.Api.Modules;
 
-public interface IApiModule
+internal interface IApiModule
 {
     IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
 }

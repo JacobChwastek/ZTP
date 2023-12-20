@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Ztp.Web.Models.Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container text-center">
+    @Html.ActionLink("Add product", "Add", new { }, new { @class = "btn btn-info" })
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductDetails.Name</td>
+                <td>@product.ProductDetails.Description</td>
+                <td>@product.ProductDetails.Quantity</td>
+                <td>@product.ProductDetails.Price.Amount @product.ProductDetails.Price.Currency</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = product.ProductId }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Edit", "Edit", new { id = product.ProductId }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Delete", "Delete", new { id = product.ProductId }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

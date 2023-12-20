@@ -22,9 +22,11 @@ public class ProductDbModel
 public class ProductDetailsDbModel
 {
     [DataMember]
+    [MaxLength(100)]
     public string Name { get; set; }
     
     [DataMember]
+    [MaxLength(1000)]
     public string Description { get; set; }
     
     [DataMember]
