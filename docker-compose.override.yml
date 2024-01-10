@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  ztp.api:
+    build:
+      context: .
+      dockerfile: Ztp.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+    ports:
+      - "5077:80"
+    depends_on:
+      - ztp.eventstore
+
+  ztp.eventstore:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ztp
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  ztp.api:
+    image: ${DOCKER_REGISTRY-}ztpapi
+    build:
+      context: .
+      dockerfile: Ztp.Api/Dockerfile
