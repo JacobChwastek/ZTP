@@ -15,4 +15,10 @@
         <InternalsVisibleTo Include="Ztp.Domain.Bdd.Tests" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Customers\" />
+      <Folder Include="Orders\Events\" />
+      <Folder Include="Shared\DomainEvents\" />
+    </ItemGroup>
+
 </Project>

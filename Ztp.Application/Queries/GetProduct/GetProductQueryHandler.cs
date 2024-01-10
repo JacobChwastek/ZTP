@@ -1,6 +1,5 @@
 ﻿using Ztp.Domain;
 using Ztp.Domain.Products;
-using Ztp.Domain.Repositories;
 using Ztp.Shared.Abstractions.Queries;
 using Ztp.Application.Dto;
 
@@ -23,7 +22,6 @@ public class GetProductQueryHandler(IProductRepository productRepository): IQuer
                 Description = product.Details?.Description ?? string.Empty,
                 Quantity = product.Details?.InventoryQuantity ?? 0,
             },
-            Version = product.Version,
             CreatedAt = product.CreatedAt,
             UpdateAt = product.UpdateAt
         };

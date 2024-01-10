@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Ztp.Domain.Products;
+using Ztp.Domain.Shared;
 
 namespace Ztp.Infrastructure.EF.Models;
 

@@ -1,6 +1,4 @@
-﻿using Ztp.Domain.Products;
-
-namespace Ztp.Domain.Repositories;
+﻿namespace Ztp.Domain.Products;
 
 public interface IProductRepository
 {

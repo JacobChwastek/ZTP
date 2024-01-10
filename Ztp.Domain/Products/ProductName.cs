@@ -1,4 +1,6 @@
-﻿namespace Ztp.Domain.Products;
+﻿using Ztp.Domain.Products.Exceptions;
+
+namespace Ztp.Domain.Products;
 
 public record ProductName
 {
@@ -18,5 +20,3 @@ public record ProductName
 
     public static implicit operator ProductName(string name) => new(name);
 }
-
-public class EmptyProductNameException() : AggregateException("Product name cannot be empty");

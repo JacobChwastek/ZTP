@@ -1,18 +1,18 @@
-﻿using Ztp.Shared.Abstractions.Exceptions;
+﻿using Ztp.Domain.Products.Exceptions;
 
 namespace Ztp.Domain.Products;
 
 public record Review
 {
     public string Title { get; init; }
-    public string Body { get; set; }
-    public short Stars { get; set; }
+    public string Body { get; init; }
+    public short Stars { get; init; }
 
     public Review(string title, string body, short stars)
     {
         if (stars is < 1 or > 5)
         {
-            throw new InvalidReviewStars();
+            throw new InvalidReviewStarsException();
         }
         
         Title = title;
@@ -20,5 +20,3 @@ public record Review
         Stars = stars;
     }
 };
-
-public class InvalidReviewStars(): DomainException("Stars can be between 1 and 5");

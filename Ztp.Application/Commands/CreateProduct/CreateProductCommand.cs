@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Ztp.Domain.Products;
+using Ztp.Domain.Shared;
 using Ztp.Shared.Abstractions.Commands;
 
 namespace Ztp.Application.Commands.CreateProduct;

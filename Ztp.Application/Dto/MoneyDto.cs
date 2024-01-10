@@ -1,4 +1,5 @@
 ﻿using Ztp.Domain.Products;
+using Ztp.Domain.Shared;
 
 namespace Ztp.Application.Dto;
 

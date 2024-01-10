@@ -1,5 +1,5 @@
 ﻿using Ztp.Domain.Products;
-using Ztp.Domain.Repositories;
+using Ztp.Domain.Shared;
 using Ztp.Shared.Abstractions.Commands;
 
 namespace Ztp.Application.Commands.CreateProduct;

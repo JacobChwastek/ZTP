@@ -1,4 +1,4 @@
-﻿using Ztp.Domain.Repositories;
+﻿using Ztp.Domain.Products;
 using Ztp.Shared.Abstractions.Commands;
 
 namespace Ztp.Application.Commands.DeleteProduct;

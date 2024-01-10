@@ -1,4 +1,6 @@
-﻿namespace Ztp.Domain.Products;
+﻿using Ztp.Domain.Shared;
+
+namespace Ztp.Domain.Products;
 
 public sealed class Product
 {
@@ -9,14 +11,12 @@ public sealed class Product
         UpdateAt = DateTime.Now;
     }
 
-    internal Product(Guid id, ProductDetails productDetails, DateTime createdAt, DateTime updateAt, List<ProductDetails> changeLog, int version)
+    internal Product(Guid id, ProductDetails productDetails, DateTime createdAt, DateTime updateAt, int version)
     {
         Id = id;
         Details = productDetails;
         CreatedAt = createdAt;
         UpdateAt = updateAt;
-        _changeLog = changeLog;
-        Version = version;
     }
     
     public Guid Id { get; }
@@ -24,11 +24,6 @@ public sealed class Product
     public ProductDetails? Details { get; private set; }
     public DateTime UpdateAt { get; private set; }
     public bool IsDeleted { get; private set; }
-    public int Version { get; private set; }
-
-    private readonly List<ProductDetails> _changeLog = [];
-
-    public IReadOnlyList<ProductDetails> Changelog => _changeLog.AsReadOnly();
 
     public void UpdateProductDetails(string name, string description, Money price, int quantity)
     {
@@ -40,16 +35,12 @@ public sealed class Product
             Price = price,
             InventoryQuantity = quantity
         };
+        
         UpdateAt = DateTime.Now;
-
-        _changeLog.Add(Details);
-        Version++;
     }
 
     public void DeleteProduct()
     {
         IsDeleted = true;
-        
-        Version++;
     }
 }

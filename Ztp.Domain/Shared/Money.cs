@@ -1,6 +1,6 @@
 ﻿using Ztp.Shared.Abstractions.Exceptions;
 
-namespace Ztp.Domain.Products;
+namespace Ztp.Domain.Shared;
 
 public record Money
 {
@@ -47,13 +47,6 @@ public record Money
 
         return left with { Amount = left.Amount + right.Amount };
     }
-}
-
-public enum Currency
-{
-    PLN = 1,
-    EUR = 2,
-    USD = 3
 }
 
 public class MoneyOperationsArePossibleOnlyForSameCurrency() : DomainException("Money operations are possible only for same currency");

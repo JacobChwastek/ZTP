@@ -1,4 +1,6 @@
-﻿namespace Ztp.Domain.Products;
+﻿using Ztp.Domain.Products.Exceptions;
+
+namespace Ztp.Domain.Products;
 
 public record InventoryQuantity
 {
@@ -8,7 +10,7 @@ public record InventoryQuantity
     {
         if (value < 0)
         {
-            throw new NonNegativeInventory();
+            throw new NonNegativeInventoryException();
         }
 
         Value = value;
@@ -17,5 +19,3 @@ public record InventoryQuantity
     public static implicit operator int(InventoryQuantity quantity) => quantity.Value;
     public static implicit operator InventoryQuantity(int quantity) => new(quantity);
 }
-
-public class NonNegativeInventory() : AggregateException("Inventory quantity cannot be lower that 0");
