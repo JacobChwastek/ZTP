@@ -2,7 +2,7 @@
 using Ztp.Domain.Shared;
 using Ztp.Shared.Abstractions.Commands;
 
-namespace Ztp.Application.Commands.CreateProduct;
+namespace Ztp.Application.Products.Commands.CreateProduct;
 
 public class CreateProductCommandHandler(IProductRepository productRepository) : ICommandHandler<CreateProductCommand, Guid>
 {

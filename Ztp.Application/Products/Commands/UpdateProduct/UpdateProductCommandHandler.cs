@@ -1,9 +1,8 @@
-﻿using Ztp.Domain;
-using Ztp.Domain.Products;
+﻿using Ztp.Domain.Products;
 using Ztp.Domain.Shared;
 using Ztp.Shared.Abstractions.Commands;
 
-namespace Ztp.Application.Commands.UpdateProduct;
+namespace Ztp.Application.Products.Commands.UpdateProduct;
 
 public class UpdateProductCommandHandler(IProductRepository productRepository) : ICommandHandler<UpdateProductCommand>
 {

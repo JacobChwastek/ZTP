@@ -1,8 +1,8 @@
-﻿using Ztp.Shared.Abstractions.Queries;
-using Ztp.Application.Dto;
+﻿using Ztp.Application.Dto;
 using Ztp.Domain.Products;
+using Ztp.Shared.Abstractions.Queries;
 
-namespace Ztp.Application.Queries.GetProducts;
+namespace Ztp.Application.Products.Queries.GetProducts;
 
 public class GetProductsQueryHandler(IProductRepository productRepository): IQueryHandler<GetProductsQuery, IReadOnlyList<ProductDto>>
 {

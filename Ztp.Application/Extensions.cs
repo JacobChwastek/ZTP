@@ -2,7 +2,7 @@
 using Ztp.Shared.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
-using Ztp.Application.Commands.CreateProduct;
+using Ztp.Application.Products.Commands.CreateProduct;
 
 namespace Ztp.Application;
 

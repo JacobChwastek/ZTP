@@ -1,6 +1,6 @@
 ﻿using Ztp.Shared.Abstractions.Commands;
 
-namespace Ztp.Application.Commands.DeleteProduct;
+namespace Ztp.Application.Products.Commands.DeleteProduct;
 
 public class DeleteProductCommand(Guid productId) : ICommand
 {

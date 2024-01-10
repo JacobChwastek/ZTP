@@ -1,7 +1,7 @@
 ﻿using Ztp.Domain.Products;
 using Ztp.Shared.Abstractions.Commands;
 
-namespace Ztp.Application.Commands.DeleteProduct;
+namespace Ztp.Application.Products.Commands.DeleteProduct;
 
 public class DeleteProductCommandHandler(IProductRepository productRepository): ICommandHandler<DeleteProductCommand>
 {

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using Ztp.Api.Filters;
-using Ztp.Application.Commands.CreateProduct;
-using Ztp.Application.Commands.DeleteProduct;
-using Ztp.Application.Commands.UpdateProduct;
-using Ztp.Application.Queries.GetProduct;
-using Ztp.Application.Queries.GetProducts;
+using Ztp.Application.Products.Commands.CreateProduct;
+using Ztp.Application.Products.Commands.DeleteProduct;
+using Ztp.Application.Products.Commands.UpdateProduct;
+using Ztp.Application.Products.Queries.GetProduct;
+using Ztp.Application.Products.Queries.GetProducts;
 using Ztp.Shared.Abstractions.Commands;
 using Ztp.Shared.Abstractions.Queries;
 
