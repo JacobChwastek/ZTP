@@ -1,3 +1,3 @@
 ﻿namespace Ztp.Domain.Products.Events;
 
-public record ProductCreated();
+public record ProductCreated(Guid ProductId, ProductDetails ProductDetails);

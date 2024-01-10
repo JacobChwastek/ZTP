@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using Ztp.Api.Filters;
+using Ztp.Application.Dto;
 using Ztp.Application.Products.Commands.CreateProduct;
 using Ztp.Application.Products.Commands.DeleteProduct;
 using Ztp.Application.Products.Commands.UpdateProduct;
@@ -19,14 +20,16 @@ public class ProductsModule : IApiModule
             .MapGroup("api/products")
             .WithTags("Products")
             .WithOpenApi();
-        
+
         group
             .MapGet("/", async (IQueryDispatcher queryDispatcher) =>
             {
                 var products = await queryDispatcher.QueryAsync(new GetProductsQuery());
                 return Results.Ok(products);
             })
-            .CacheOutput(builder => builder.Tag("Products"));
+            .CacheOutput(builder => builder.Tag("Products"))
+            .Produces(StatusCodes.Status200OK, typeof(IReadOnlyList<ProductDto>))
+            .Produces(StatusCodes.Status404NotFound, typeof(EmptyResult));
 
         group
             .MapGet("/{productId:guid}",
@@ -59,8 +62,7 @@ public class ProductsModule : IApiModule
 
         group
             .MapPut("/",
-                async ([FromBody] UpdateProductCommand updateProduct, ICommandDispatcher commandDispatcher,
-                    IOutputCacheStore cache, CancellationToken token) =>
+                async ([FromBody] UpdateProductCommand updateProduct, ICommandDispatcher commandDispatcher, IOutputCacheStore cache, CancellationToken token) =>
                 {
                     await commandDispatcher.DispatchAsync(updateProduct);
                     await cache.EvictByTagAsync("Products", token);

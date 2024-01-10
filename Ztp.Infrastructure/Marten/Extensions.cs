@@ -1,27 +1,72 @@
-﻿using Marten;
+﻿using JasperFx.CodeGeneration;
+using Marten;
+using Marten.Events.Daemon.Resiliency;
+using Marten.Events.Projections;
+using Marten.Services.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Weasel.Core;
+using Ztp.Domain.Orders;
+using Ztp.Domain.Products;
+using Ztp.Infrastructure.Marten.Repositories;
+using Ztp.Shared.Abstractions.Aggregate;
+using Ztp.Shared.Abstractions.Marten;
+using Ztp.Shared.Abstractions.OptimisticConcurrency;
 
 namespace Ztp.Infrastructure.Marten;
 
 public static class Extensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddMarten(this IServiceCollection services, IConfiguration configuration)
     {
-        // var options = configuration.GetSection("Cosmos").Get<CosmosOptions>();
-        
         services.AddMarten(options =>
-        {
-            // Establish the connection string to your Marten database
-            // options.Connection(builder.Configuration.GetConnectionString("Marten")!);
+            {
+                options.Connection(configuration.GetConnectionString("EventStore")!);
+                options.AutoCreateSchemaObjects = AutoCreate.All;
+                options.UseDefaultSerialization(
+                    EnumStorage.AsString,
+                    nonPublicMembersStorage: NonPublicMembersStorage.All,
+                    serializerType: SerializerType.SystemTextJson
+                );
+
+                options.Projections
+                    .Snapshot<Order>(SnapshotLifecycle.Inline)
+                    .DatabaseSchemaName("order_event_store");
+                
+                options.Projections
+                    .Snapshot<Product>(SnapshotLifecycle.Inline)
+                    .DatabaseSchemaName("product_event_store");
+
+            })
+            .ApplyAllDatabaseChangesOnStartup()
+            .AssertDatabaseMatchesConfigurationOnStartup()
+            .OptimizeArtifactWorkflow(TypeLoadMode.Static)
+            .UseLightweightSessions()
+            .AddAsyncDaemon(DaemonMode.Solo);
+
+
+        services.AddScoped<IExpectedResourceVersionProvider, ExpectedResourceVersionProvider>();
+        services.AddScoped<INextResourceVersionProvider, NextResourceVersionProvider>();
         
-            // If we're running in development mode, let Marten just take care
-            // of all necessary schema building and patching behind the scenes
-            // if (builder.Environment.IsDevelopment())
-            // {
-            //     options.AutoCreateSchemaObjects = AutoCreate.All;
-            // }
-        });
+        services.AddMartenRepository<Order>();
+        services.AddMartenRepository<Product>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddMartenRepository<T>(this IServiceCollection services,bool withAppendScope = true) where T : class, IAggregate
+    {
+        services.AddScoped<IMartenRepository<T>, MartenRepository<T>>();
+
+        if (withAppendScope)
+            services.Decorate<IMartenRepository<T>>(
+                (inner, sp) => new MartenRepositoryWithETagDecorator<T>(
+                    inner,
+                    sp.GetRequiredService<IExpectedResourceVersionProvider>(),
+                    sp.GetRequiredService<INextResourceVersionProvider>()
+                )
+            );
+        
         return services;
     }
 }

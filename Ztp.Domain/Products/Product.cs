@@ -1,46 +1,65 @@
-﻿using Ztp.Domain.Shared;
+﻿using Ztp.Domain.Products.Events;
+using Ztp.Domain.Shared;
+using Ztp.Shared.Abstractions.Aggregate;
 
 namespace Ztp.Domain.Products;
 
-public sealed class Product
+public sealed class Product: Aggregate
 {
-    public Product()
+    public Product(){}
+    
+    public static Product New(ProductDetails productDetails)
     {
-        Id = Guid.NewGuid();
-        CreatedAt = DateTime.Now;
-        UpdateAt = DateTime.Now;
-    }
-
-    internal Product(Guid id, ProductDetails productDetails, DateTime createdAt, DateTime updateAt, int version)
-    {
-        Id = id;
-        Details = productDetails;
-        CreatedAt = createdAt;
-        UpdateAt = updateAt;
+        return new(Guid.NewGuid(), productDetails);
     }
     
-    public Guid Id { get; }
-    public DateTime CreatedAt { get; }
+    internal Product(Guid id, ProductDetails productDetails)
+    {
+        var @event = new ProductCreated(id, productDetails);
+        
+        Enqueue(@event);
+        Apply(@event);
+    }
+    
     public ProductDetails? Details { get; private set; }
+    public DateTime CreatedAt { get; private set; }
     public DateTime UpdateAt { get; private set; }
     public bool IsDeleted { get; private set; }
 
-    public void UpdateProductDetails(string name, string description, Money price, int quantity)
+    public void Update(string name, string description, Money price, int quantity)
     {
-        Details = new ProductDetails
-        {
-            Name = name,
-            Description = description,
-            Availability = quantity > 0,
-            Price = price,
-            InventoryQuantity = quantity
-        };
+        var @event = new ProductUpdated(name, description, price, quantity, quantity > 0);
         
-        UpdateAt = DateTime.Now;
+        Enqueue(@event);
+        Apply(@event);
     }
 
     public void DeleteProduct()
     {
         IsDeleted = true;
+    }
+    
+    
+    public void Apply(ProductCreated @event)
+    {
+        Id = @event.ProductId;
+        Details = @event.ProductDetails;
+        CreatedAt = DateTime.Now;
+        UpdateAt = DateTime.Now;
+        IsDeleted = false;
+    }  
+    
+    public void Apply(ProductUpdated @event)
+    {
+        Details = new ProductDetails()
+        {
+            Availability = @event.Availability,
+            Description = new ProductDescription(@event.Description),
+            InventoryQuantity = @event.InventoryQuantity,
+            Price = @event.Price,
+            Name = @event.Name
+        };
+        UpdateAt = DateTime.Now;
+        IsDeleted = false;
     }
 }
