@@ -1,3 +1,5 @@
-﻿namespace Ztp.Domain.Orders.Events;
+﻿using Ztp.Shared.Abstractions;
 
-public record OrderAdded(Guid OrderId, Guid CustomerId, List<OrderProduct> OrderProducts);
+namespace Ztp.Domain.Orders.Events;
+
+public record OrderAdded(Guid OrderId, Guid CustomerId, List<OrderProduct> OrderProducts): IDomainEvent;

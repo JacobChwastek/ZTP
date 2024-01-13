@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Ztp.Application.Customers.Commands;
+using Ztp.Shared.Abstractions.Commands;
 
 namespace Ztp.Api.Modules.Customers;
 
@@ -26,9 +28,10 @@ public class CustomersModule: IApiModule
 
 
         group
-            .MapPost("/", async () =>
+            .MapPost("/", async ([FromBody] CreateCustomerCommand createProduct, ICommandDispatcher commandDispatcher) =>
             {
-                return Results.Ok("Create Orders");
+                await commandDispatcher.DispatchAsync(createProduct);
+                return Results.Created();
             });
         
         return group;

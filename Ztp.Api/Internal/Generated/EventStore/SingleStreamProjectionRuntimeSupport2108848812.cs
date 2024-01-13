@@ -57,8 +57,8 @@ namespace Marten.Generated.EventStore
         {
             switch (@event)
             {
-                case Marten.Events.IEvent<Ztp.Domain.Orders.Events.OrderAdded> event_OrderAdded5:
-                    aggregate.Apply(event_OrderAdded5.Data);
+                case Marten.Events.IEvent<Ztp.Domain.Orders.Events.OrderAdded> event_OrderAdded1:
+                    aggregate.Apply(event_OrderAdded1.Data);
                     break;
             }
 
@@ -94,9 +94,9 @@ namespace Marten.Generated.EventStore
         {
             switch (evt)
             {
-                case Marten.Events.IEvent<Ztp.Domain.Orders.Events.OrderAdded> event_OrderAdded6:
+                case Marten.Events.IEvent<Ztp.Domain.Orders.Events.OrderAdded> event_OrderAdded2:
                     aggregate ??= new Ztp.Domain.Orders.Order();
-                    aggregate.Apply(event_OrderAdded6.Data);
+                    aggregate.Apply(event_OrderAdded2.Data);
                     return aggregate;
             }
 

@@ -10,10 +10,10 @@ public sealed class Product: Aggregate
     
     public static Product New(ProductDetails productDetails)
     {
-        return new(Guid.NewGuid(), productDetails);
+        return new Product(Guid.NewGuid(), productDetails);
     }
-    
-    internal Product(Guid id, ProductDetails productDetails)
+
+    private Product(Guid id, ProductDetails productDetails)
     {
         var @event = new ProductCreated(id, productDetails);
         
@@ -38,9 +38,11 @@ public sealed class Product: Aggregate
     {
         IsDeleted = true;
     }
-    
-    
-    public void Apply(ProductCreated @event)
+
+
+    #region Apply Events
+
+    private void Apply(ProductCreated @event)
     {
         Id = @event.ProductId;
         Details = @event.ProductDetails;
@@ -49,7 +51,7 @@ public sealed class Product: Aggregate
         IsDeleted = false;
     }  
     
-    public void Apply(ProductUpdated @event)
+    private void Apply(ProductUpdated @event)
     {
         Details = new ProductDetails()
         {
@@ -62,4 +64,6 @@ public sealed class Product: Aggregate
         UpdateAt = DateTime.Now;
         IsDeleted = false;
     }
+    
+    #endregion
 }

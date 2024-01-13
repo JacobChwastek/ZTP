@@ -15,15 +15,4 @@ internal sealed class InMemoryCommandDispatcher(IServiceProvider serviceProvider
             .GetMethod(nameof(ICommandHandler<ICommand>.HandleAsync))?
             .Invoke(handler, new[] { command });
     }
-
-    public async Task<TResult> DispatchAsync<TCommand, TResult>(TCommand command) where TCommand : class, ICommand
-    {
-        using var scope = serviceProvider.CreateScope();
-        var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), typeof(TResult));
-        var handler = scope.ServiceProvider.GetRequiredService(handlerType);
-
-        return await (Task<TResult>)handlerType
-            .GetMethod(nameof(ICommandHandler<ICommand<TResult>, TResult>.HandleAsync))?
-            .Invoke(handler, new[] { command });
-    }
 }

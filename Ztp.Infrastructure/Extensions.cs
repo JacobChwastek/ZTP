@@ -1,7 +1,5 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Ztp.Domain.Orders;
 using Ztp.Domain.Products;
 using Ztp.Infrastructure.EF;
 using Ztp.Infrastructure.Marten;

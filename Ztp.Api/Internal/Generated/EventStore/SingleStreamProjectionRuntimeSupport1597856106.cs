@@ -19,6 +19,10 @@ namespace Marten.Generated.EventStore
         }
 
 
+        public System.Action<Ztp.Domain.Products.Product, Ztp.Domain.Products.Events.ProductCreated> Lambda1 {get; set;}
+
+        public System.Action<Ztp.Domain.Products.Product, Ztp.Domain.Products.Events.ProductUpdated> Lambda2 {get; set;}
+
 
         public override Ztp.Domain.Products.Product Build(System.Collections.Generic.IReadOnlyList<Marten.Events.IEvent> events, Marten.IQuerySession session, Ztp.Domain.Products.Product snapshot)
         {
@@ -57,11 +61,11 @@ namespace Marten.Generated.EventStore
         {
             switch (@event)
             {
-                case Marten.Events.IEvent<Ztp.Domain.Products.Events.ProductCreated> event_ProductCreated7:
-                    aggregate.Apply(event_ProductCreated7.Data);
+                case Marten.Events.IEvent<Ztp.Domain.Products.Events.ProductCreated> event_ProductCreated3:
+                    Lambda1.Invoke(aggregate, event_ProductCreated3.Data);
                     break;
-                case Marten.Events.IEvent<Ztp.Domain.Products.Events.ProductUpdated> event_ProductUpdated8:
-                    aggregate.Apply(event_ProductUpdated8.Data);
+                case Marten.Events.IEvent<Ztp.Domain.Products.Events.ProductUpdated> event_ProductUpdated4:
+                    Lambda2.Invoke(aggregate, event_ProductUpdated4.Data);
                     break;
             }
 
@@ -92,18 +96,22 @@ namespace Marten.Generated.EventStore
         }
 
 
+        public System.Action<Ztp.Domain.Products.Product, Ztp.Domain.Products.Events.ProductCreated> Lambda1 {get; set;}
+
+        public System.Action<Ztp.Domain.Products.Product, Ztp.Domain.Products.Events.ProductUpdated> Lambda2 {get; set;}
+
 
         public override async System.Threading.Tasks.ValueTask<Ztp.Domain.Products.Product> ApplyEvent(Marten.IQuerySession session, Marten.Events.Projections.EventSlice<Ztp.Domain.Products.Product, System.Guid> slice, Marten.Events.IEvent evt, Ztp.Domain.Products.Product aggregate, System.Threading.CancellationToken cancellationToken)
         {
             switch (evt)
             {
-                case Marten.Events.IEvent<Ztp.Domain.Products.Events.ProductCreated> event_ProductCreated9:
+                case Marten.Events.IEvent<Ztp.Domain.Products.Events.ProductCreated> event_ProductCreated5:
                     aggregate ??= new Ztp.Domain.Products.Product();
-                    aggregate.Apply(event_ProductCreated9.Data);
+                    Lambda1.Invoke(aggregate, event_ProductCreated5.Data);
                     return aggregate;
-                case Marten.Events.IEvent<Ztp.Domain.Products.Events.ProductUpdated> event_ProductUpdated10:
+                case Marten.Events.IEvent<Ztp.Domain.Products.Events.ProductUpdated> event_ProductUpdated6:
                     aggregate ??= new Ztp.Domain.Products.Product();
-                    aggregate.Apply(event_ProductUpdated10.Data);
+                    Lambda2.Invoke(aggregate, event_ProductUpdated6.Data);
                     return aggregate;
             }
 

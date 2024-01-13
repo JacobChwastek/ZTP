@@ -30,7 +30,7 @@ namespace Marten.Generated.DocumentStorage
         }
 
 
-        public const string COMMAND_TEXT = "select product_event_store.mt_upsert_product(?, ?, ?, ?)";
+        public const string COMMAND_TEXT = "select public.mt_upsert_product(?, ?, ?, ?)";
 
 
         public override void Postprocess(System.Data.Common.DbDataReader reader, System.Collections.Generic.IList<System.Exception> exceptions)
@@ -99,7 +99,7 @@ namespace Marten.Generated.DocumentStorage
         }
 
 
-        public const string COMMAND_TEXT = "select product_event_store.mt_insert_product(?, ?, ?, ?)";
+        public const string COMMAND_TEXT = "select public.mt_insert_product(?, ?, ?, ?)";
 
 
         public override void Postprocess(System.Data.Common.DbDataReader reader, System.Collections.Generic.IList<System.Exception> exceptions)
@@ -168,7 +168,7 @@ namespace Marten.Generated.DocumentStorage
         }
 
 
-        public const string COMMAND_TEXT = "select product_event_store.mt_update_product(?, ?, ?, ?)";
+        public const string COMMAND_TEXT = "select public.mt_update_product(?, ?, ?, ?)";
 
 
         public override void Postprocess(System.Data.Common.DbDataReader reader, System.Collections.Generic.IList<System.Exception> exceptions)
@@ -765,15 +765,15 @@ namespace Marten.Generated.DocumentStorage
         }
 
 
-        public const string MAIN_LOADER_SQL = "COPY product_event_store.mt_doc_product(\"mt_dotnet_type\", \"id\", \"mt_version\", \"data\") FROM STDIN BINARY";
+        public const string MAIN_LOADER_SQL = "COPY public.mt_doc_product(\"mt_dotnet_type\", \"id\", \"mt_version\", \"data\") FROM STDIN BINARY";
 
         public const string TEMP_LOADER_SQL = "COPY mt_doc_product_temp(\"mt_dotnet_type\", \"id\", \"mt_version\", \"data\") FROM STDIN BINARY";
 
-        public const string COPY_NEW_DOCUMENTS_SQL = "insert into product_event_store.mt_doc_product (\"id\", \"data\", \"mt_version\", \"mt_dotnet_type\", mt_last_modified) (select mt_doc_product_temp.\"id\", mt_doc_product_temp.\"data\", mt_doc_product_temp.\"mt_version\", mt_doc_product_temp.\"mt_dotnet_type\", transaction_timestamp() from mt_doc_product_temp left join product_event_store.mt_doc_product on mt_doc_product_temp.id = product_event_store.mt_doc_product.id where product_event_store.mt_doc_product.id is null)";
+        public const string COPY_NEW_DOCUMENTS_SQL = "insert into public.mt_doc_product (\"id\", \"data\", \"mt_version\", \"mt_dotnet_type\", mt_last_modified) (select mt_doc_product_temp.\"id\", mt_doc_product_temp.\"data\", mt_doc_product_temp.\"mt_version\", mt_doc_product_temp.\"mt_dotnet_type\", transaction_timestamp() from mt_doc_product_temp left join public.mt_doc_product on mt_doc_product_temp.id = public.mt_doc_product.id where public.mt_doc_product.id is null)";
 
-        public const string OVERWRITE_SQL = "update product_event_store.mt_doc_product target SET data = source.data, mt_version = source.mt_version, mt_dotnet_type = source.mt_dotnet_type, mt_last_modified = transaction_timestamp() FROM mt_doc_product_temp source WHERE source.id = target.id";
+        public const string OVERWRITE_SQL = "update public.mt_doc_product target SET data = source.data, mt_version = source.mt_version, mt_dotnet_type = source.mt_dotnet_type, mt_last_modified = transaction_timestamp() FROM mt_doc_product_temp source WHERE source.id = target.id";
 
-        public const string CREATE_TEMP_TABLE_FOR_COPYING_SQL = "create temporary table mt_doc_product_temp as select * from product_event_store.mt_doc_product limit 0";
+        public const string CREATE_TEMP_TABLE_FOR_COPYING_SQL = "create temporary table mt_doc_product_temp as select * from public.mt_doc_product limit 0";
 
 
         public override string CreateTempTableForCopying()

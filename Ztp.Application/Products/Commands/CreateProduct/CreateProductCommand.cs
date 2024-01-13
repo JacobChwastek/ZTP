@@ -4,7 +4,7 @@ using Ztp.Shared.Abstractions.Commands;
 
 namespace Ztp.Application.Products.Commands.CreateProduct;
 
-public class CreateProductCommand(string name, string description, decimal price, Currency currency, int quantity) : ICommand<Guid>
+public class CreateProductCommand(string name, string description, decimal price, Currency currency, int quantity) : ICommand
 {
     public string Name { get; } = name;
     public string Description { get; } = description;

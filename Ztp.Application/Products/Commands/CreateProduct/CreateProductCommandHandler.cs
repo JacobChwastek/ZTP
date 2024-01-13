@@ -5,7 +5,7 @@ using Ztp.Shared.Abstractions.Marten;
 
 namespace Ztp.Application.Products.Commands.CreateProduct;
 
-public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, Guid>
+public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
 {
     private readonly IMartenRepository<Product> _repository;
 
@@ -14,7 +14,7 @@ public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand,
         _repository = repository;
     }
 
-    public async Task<Guid> HandleAsync(CreateProductCommand command)
+    public async Task HandleAsync(CreateProductCommand command)
     {
         var product = Product.New(new ProductDetails
         {
@@ -24,10 +24,7 @@ public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand,
             InventoryQuantity = new InventoryQuantity(command.Quantity),
             Availability = command.Quantity > 0
         });
-            
         
         await _repository.Add(product);
-
-        return product.Id;
     }
 }

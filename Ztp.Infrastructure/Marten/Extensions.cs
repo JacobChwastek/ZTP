@@ -6,6 +6,7 @@ using Marten.Services.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Weasel.Core;
+using Ztp.Domain.Customers;
 using Ztp.Domain.Orders;
 using Ztp.Domain.Products;
 using Ztp.Infrastructure.Marten.Repositories;
@@ -28,28 +29,22 @@ public static class Extensions
                     nonPublicMembersStorage: NonPublicMembersStorage.All,
                     serializerType: SerializerType.SystemTextJson
                 );
-
-                options.Projections
-                    .Snapshot<Order>(SnapshotLifecycle.Inline)
-                    .DatabaseSchemaName("order_event_store");
                 
-                options.Projections
-                    .Snapshot<Product>(SnapshotLifecycle.Inline)
-                    .DatabaseSchemaName("product_event_store");
-
+                options.Projections.Snapshot<Order>(SnapshotLifecycle.Inline);
+                options.Projections.Snapshot<Product>(SnapshotLifecycle.Inline);
+                options.Projections.Snapshot<Customer>(SnapshotLifecycle.Inline);
             })
             .ApplyAllDatabaseChangesOnStartup()
-            .AssertDatabaseMatchesConfigurationOnStartup()
             .OptimizeArtifactWorkflow(TypeLoadMode.Static)
             .UseLightweightSessions()
             .AddAsyncDaemon(DaemonMode.Solo);
-
 
         services.AddScoped<IExpectedResourceVersionProvider, ExpectedResourceVersionProvider>();
         services.AddScoped<INextResourceVersionProvider, NextResourceVersionProvider>();
         
         services.AddMartenRepository<Order>();
         services.AddMartenRepository<Product>();
+        services.AddMartenRepository<Customer>();
 
         return services;
     }

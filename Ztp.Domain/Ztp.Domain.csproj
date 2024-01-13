@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Customers\" />
+      <Folder Include="Customers\Rules\" />
       <Folder Include="Shared\DomainEvents\" />
     </ItemGroup>
 

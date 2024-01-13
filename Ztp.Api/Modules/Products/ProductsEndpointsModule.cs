@@ -53,10 +53,10 @@ public class ProductsModule : IApiModule
                 async ([FromBody] CreateProductCommand createProduct, ICommandDispatcher commandDispatcher,
                     IOutputCacheStore cache, CancellationToken token) =>
                 {
-                    var productId = await commandDispatcher.DispatchAsync<CreateProductCommand, Guid>(createProduct);
+                    await commandDispatcher.DispatchAsync(createProduct);
 
                     await cache.EvictByTagAsync("Products", token);
-                    return Results.Created($"api/products/{productId}", createProduct);
+                    return Results.Ok();
                 })
             .AddEndpointFilter<ValidatorFilter<CreateProductCommand>>();
 

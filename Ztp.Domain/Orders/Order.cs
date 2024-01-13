@@ -12,11 +12,6 @@ public class Order: Aggregate
     
     private Order(Guid customerId, List<OrderProduct> orderProducts)
     {
-        // if (orderProducts == null || orderProducts.Count == 0)
-        // {
-        //     throw new ArgumentNullException();
-        // }
-        
         var @event = new OrderAdded(Guid.NewGuid(), CustomerId, new List<OrderProduct>());
         Apply(@event);
     }
@@ -25,7 +20,6 @@ public class Order: Aggregate
     {
         return new Order(customerId, orderProducts);
     }
-    
     
     public Guid CustomerId { get; private set; }
     public List<OrderProduct> Products { get; private set; }
