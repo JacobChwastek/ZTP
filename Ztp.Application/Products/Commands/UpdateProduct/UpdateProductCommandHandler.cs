@@ -16,14 +16,14 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
 
     public async Task HandleAsync(UpdateProductCommand command)
     {
-        await _repository.GetAndUpdate(command.Id, product =>
-        {
-            product.Update(
-                command.Name,
-                command.Description,
-              new Money(command.Price, command.Currency),
-                command.Quantity
-            );
-        });
+        // await _repository.GetAndUpdate(command.Id, product =>
+        // {
+        //     product.Update(
+        //         command.Name,
+        //         command.Description,
+        //       new Money(command.Price, command.Currency),
+        //         command.Quantity
+        //     );
+        // });
     }
 }

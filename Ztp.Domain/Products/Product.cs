@@ -1,13 +1,15 @@
 ﻿using Ztp.Domain.Products.Events;
 using Ztp.Domain.Shared;
-using Ztp.Shared.Abstractions.Aggregate;
+using Ztp.Shared.Abstractions.Marten.Aggregate;
 
 namespace Ztp.Domain.Products;
 
-public sealed class Product: Aggregate
+public sealed class Product : Aggregate<ProductId>
 {
-    public Product(){}
-    
+    public Product()
+    {
+    }
+
     public static Product New(ProductDetails productDetails)
     {
         return new Product(Guid.NewGuid(), productDetails);
@@ -16,11 +18,11 @@ public sealed class Product: Aggregate
     private Product(Guid id, ProductDetails productDetails)
     {
         var @event = new ProductCreated(id, productDetails);
-        
+
         Enqueue(@event);
         Apply(@event);
     }
-    
+
     public ProductDetails? Details { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdateAt { get; private set; }
@@ -29,14 +31,9 @@ public sealed class Product: Aggregate
     public void Update(string name, string description, Money price, int quantity)
     {
         var @event = new ProductUpdated(name, description, price, quantity, quantity > 0);
-        
+
         Enqueue(@event);
         Apply(@event);
-    }
-
-    public void DeleteProduct()
-    {
-        IsDeleted = true;
     }
 
 
@@ -49,11 +46,11 @@ public sealed class Product: Aggregate
         CreatedAt = DateTime.Now;
         UpdateAt = DateTime.Now;
         IsDeleted = false;
-    }  
-    
+    }
+
     private void Apply(ProductUpdated @event)
     {
-        Details = new ProductDetails()
+        Details = new ProductDetails
         {
             Availability = @event.Availability,
             Description = new ProductDescription(@event.Description),
@@ -64,6 +61,6 @@ public sealed class Product: Aggregate
         UpdateAt = DateTime.Now;
         IsDeleted = false;
     }
-    
+
     #endregion
 }

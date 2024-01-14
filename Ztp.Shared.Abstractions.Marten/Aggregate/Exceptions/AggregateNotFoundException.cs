@@ -1,4 +1,4 @@
-﻿namespace Ztp.Shared.Abstractions.Aggregate.Exceptions;
+﻿namespace Ztp.Shared.Abstractions.Marten.Aggregate.Exceptions;
 
 public class AggregateNotFoundException : Exception
 {

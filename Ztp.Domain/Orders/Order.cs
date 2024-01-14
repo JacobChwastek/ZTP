@@ -1,15 +1,12 @@
 ﻿using Ztp.Domain.Orders.Events;
-using Ztp.Shared.Abstractions.Aggregate;
-
+using Ztp.Shared.Abstractions.Marten.Aggregate;
 
 namespace Ztp.Domain.Orders;
 
-public class Order: Aggregate
+public class Order : Aggregate<OrderId>
 {
-    public Order()
-    {
-    }
-    
+    private Order() { }
+
     private Order(Guid customerId, List<OrderProduct> orderProducts)
     {
         var @event = new OrderAdded(Guid.NewGuid(), CustomerId, new List<OrderProduct>());
@@ -20,7 +17,7 @@ public class Order: Aggregate
     {
         return new Order(customerId, orderProducts);
     }
-    
+
     public Guid CustomerId { get; private set; }
     public List<OrderProduct> Products { get; private set; }
 

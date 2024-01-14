@@ -1,16 +1,11 @@
-﻿using Ztp.Domain.Products;
-using Ztp.Shared.Abstractions.Commands;
+﻿using Ztp.Shared.Abstractions.Commands;
 
 namespace Ztp.Application.Products.Commands.DeleteProduct;
 
-public class DeleteProductCommandHandler(IProductRepository productRepository): ICommandHandler<DeleteProductCommand>
+public class DeleteProductCommandHandler(): ICommandHandler<DeleteProductCommand>
 {
     public async Task HandleAsync(DeleteProductCommand command)
     {
-        var product = await productRepository.GetProductById(command.ProductId);
         
-        product.DeleteProduct();
-
-        await productRepository.SaveProduct(product);
     }
 }

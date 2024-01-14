@@ -29,4 +29,8 @@
       <ProjectReference Include="..\Ztp.Application\Ztp.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="EF\" />
+    </ItemGroup>
+
 </Project>

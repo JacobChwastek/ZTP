@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Mvc;
 using Ztp.Application.Customers.Commands;
 using Ztp.Shared.Abstractions.Commands;
 
@@ -12,8 +13,7 @@ public class CustomersModule: IApiModule
             .MapGroup("api/customers")
             .WithTags("Customers")
             .WithOpenApi();
-
-
+        
         group
             .MapGet("/", async () =>
             {
@@ -28,7 +28,7 @@ public class CustomersModule: IApiModule
 
 
         group
-            .MapPost("/", async ([FromBody] CreateCustomerCommand createProduct, ICommandDispatcher commandDispatcher) =>
+            .MapPost("/", async ([FromBody] CreateCustomerCommand createProduct, ICommandDispatcher commandDispatcher, IBus bus) =>
             {
                 await commandDispatcher.DispatchAsync(createProduct);
                 return Results.Created();

@@ -8,10 +8,21 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     ports:
       - "5077:80"
     depends_on:
       - ztp.eventstore
+      - rabbitmq
+
+  ztp.webjobs.domain:
+    build:
+      context: .
+      dockerfile: Ztp.WebJobs.Domain/Dockerfile
+    depends_on:
+      - rabbitmq
 
   ztp.eventstore:
     image: postgres:13
@@ -24,5 +35,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
 volumes:
   postgres_data:
+  rabbitmq_data:

@@ -1,12 +1,12 @@
 ﻿using Ztp.Domain.Customers.Events;
 using Ztp.Domain.Customers.Exceptions;
-using Ztp.Shared.Abstractions.Aggregate;
+using Ztp.Shared.Abstractions.Marten.Aggregate;
 
 namespace Ztp.Domain.Customers;
 
-public class Customer : Aggregate
+public class Customer : Aggregate<CustomerId>
 {
-    public Customer() { }
+    private Customer() { }
     
     public static Customer New(string name)
     {
@@ -32,7 +32,7 @@ public class Customer : Aggregate
 
     private void Apply(CustomerAdded @event)
     {
-        Id = @event.Id;
+        Id = new CustomerId(@event.Id);
         Name = @event.Name;
     }
 

@@ -10,8 +10,8 @@ using Ztp.Domain.Customers;
 using Ztp.Domain.Orders;
 using Ztp.Domain.Products;
 using Ztp.Infrastructure.Marten.Repositories;
-using Ztp.Shared.Abstractions.Aggregate;
 using Ztp.Shared.Abstractions.Marten;
+using Ztp.Shared.Abstractions.Marten.Aggregate;
 using Ztp.Shared.Abstractions.OptimisticConcurrency;
 
 namespace Ztp.Infrastructure.Marten;
@@ -29,7 +29,7 @@ public static class Extensions
                     nonPublicMembersStorage: NonPublicMembersStorage.All,
                     serializerType: SerializerType.SystemTextJson
                 );
-                
+
                 options.Projections.Snapshot<Order>(SnapshotLifecycle.Inline);
                 options.Projections.Snapshot<Product>(SnapshotLifecycle.Inline);
                 options.Projections.Snapshot<Customer>(SnapshotLifecycle.Inline);
@@ -42,25 +42,16 @@ public static class Extensions
         services.AddScoped<IExpectedResourceVersionProvider, ExpectedResourceVersionProvider>();
         services.AddScoped<INextResourceVersionProvider, NextResourceVersionProvider>();
         
-        services.AddMartenRepository<Order>();
-        services.AddMartenRepository<Product>();
-        services.AddMartenRepository<Customer>();
+        services.AddMartenRepository<Order, OrderId>();
+        services.AddMartenRepository<Product, ProductId>();
+        services.AddMartenRepository<Customer, CustomerId>();
 
         return services;
     }
 
-    public static IServiceCollection AddMartenRepository<T>(this IServiceCollection services,bool withAppendScope = true) where T : class, IAggregate
+    private static IServiceCollection AddMartenRepository<T, TKey>(this IServiceCollection services,bool withAppendScope = true) where T : class, IAggregate<TKey> where TKey : StronglyTypedValue<Guid>
     {
-        services.AddScoped<IMartenRepository<T>, MartenRepository<T>>();
-
-        if (withAppendScope)
-            services.Decorate<IMartenRepository<T>>(
-                (inner, sp) => new MartenRepositoryWithETagDecorator<T>(
-                    inner,
-                    sp.GetRequiredService<IExpectedResourceVersionProvider>(),
-                    sp.GetRequiredService<INextResourceVersionProvider>()
-                )
-            );
+        services.AddScoped<IMartenRepository<T>, MartenRepository<T,TKey>>();
         
         return services;
     }
