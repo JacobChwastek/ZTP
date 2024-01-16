@@ -1,11 +1,9 @@
 ﻿using Ztp.Domain.Products;
-using Ztp.Domain.Shared;
-using Ztp.Shared.Abstractions.Commands;
 using Ztp.Shared.Abstractions.Marten;
 
 namespace Ztp.Application.Products.Commands.UpdateProduct;
 
-public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
+public class UpdateProductCommandHandler
 {
     private readonly IMartenRepository<Product> _repository;
 

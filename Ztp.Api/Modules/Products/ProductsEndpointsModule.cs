@@ -3,12 +3,7 @@ using Microsoft.AspNetCore.OutputCaching;
 using Ztp.Api.Filters;
 using Ztp.Application.Dto;
 using Ztp.Application.Products.Commands.CreateProduct;
-using Ztp.Application.Products.Commands.DeleteProduct;
 using Ztp.Application.Products.Commands.UpdateProduct;
-using Ztp.Application.Products.Queries.GetProduct;
-using Ztp.Application.Products.Queries.GetProducts;
-using Ztp.Shared.Abstractions.Commands;
-using Ztp.Shared.Abstractions.Queries;
 
 namespace Ztp.Api.Modules.Products;
 
@@ -22,10 +17,10 @@ public class ProductsModule : IApiModule
             .WithOpenApi();
 
         group
-            .MapGet("/", async (IQueryDispatcher queryDispatcher) =>
+            .MapGet("/", async () =>
             {
-                var products = await queryDispatcher.QueryAsync(new GetProductsQuery());
-                return Results.Ok(products);
+                // var products = await queryDispatcher.QueryAsync(new GetProductsQuery());
+                return Results.Ok();
             })
             .CacheOutput(builder => builder.Tag("Products"))
             .Produces(StatusCodes.Status200OK, typeof(IReadOnlyList<ProductDto>))
@@ -33,14 +28,14 @@ public class ProductsModule : IApiModule
 
         group
             .MapGet("/{productId:guid}",
-                async ([FromRoute] Guid productId, IQueryDispatcher queryDispatcher) =>
+                async ([FromRoute] Guid productId) =>
                 {
-                    var product = await queryDispatcher.QueryAsync(new GetProductQuery
-                    {
-                        ProductId = productId
-                    });
+                    // var product = await queryDispatcher.QueryAsync(new GetProductQuery
+                    // {
+                    //     ProductId = productId
+                    // });
 
-                    return Results.Ok(product);
+                    return Results.Ok();
                 })
             .CacheOutput(p =>
             {
@@ -50,11 +45,8 @@ public class ProductsModule : IApiModule
 
         group
             .MapPost("/",
-                async ([FromBody] CreateProductCommand createProduct, ICommandDispatcher commandDispatcher,
-                    IOutputCacheStore cache, CancellationToken token) =>
+                async ([FromBody] CreateProductCommand createProduct, IOutputCacheStore cache, CancellationToken token) =>
                 {
-                    await commandDispatcher.DispatchAsync(createProduct);
-
                     await cache.EvictByTagAsync("Products", token);
                     return Results.Ok();
                 })
@@ -62,9 +54,8 @@ public class ProductsModule : IApiModule
 
         group
             .MapPut("/",
-                async ([FromBody] UpdateProductCommand updateProduct, ICommandDispatcher commandDispatcher, IOutputCacheStore cache, CancellationToken token) =>
+                async ([FromBody] UpdateProductCommand updateProduct, IOutputCacheStore cache, CancellationToken token) =>
                 {
-                    await commandDispatcher.DispatchAsync(updateProduct);
                     await cache.EvictByTagAsync("Products", token);
                     return Results.Ok();
                 })
@@ -72,9 +63,8 @@ public class ProductsModule : IApiModule
 
         group
             .MapDelete("/{productId:guid}",
-                async ([FromRoute] Guid productId, ICommandDispatcher commandDispatcher, IOutputCacheStore cache, CancellationToken token) =>
+                async ([FromRoute] Guid productId, IOutputCacheStore cache, CancellationToken token) =>
                 {
-                    await commandDispatcher.DispatchAsync(new DeleteProductCommand(productId));
                     await cache.EvictByTagAsync("Products", token);
                     return Results.Ok();
                 })

@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Ztp.Domain.Contracts\Ztp.Domain.Contracts.csproj" />
       <ProjectReference Include="..\Ztp.Shared.Abstractions.Marten\Ztp.Shared.Abstractions.Marten.csproj" />
       <ProjectReference Include="..\Ztp.Shared.Abstractions\Ztp.Shared.Abstractions.csproj" />
     </ItemGroup>

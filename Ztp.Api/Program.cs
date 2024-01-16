@@ -1,7 +1,6 @@
 using Ztp.Api.Modules;
 using Ztp.Application;
 using Ztp.Infrastructure;
-using Ztp.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +8,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApiModules();
-builder.Services.AddShared();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 

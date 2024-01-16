@@ -1,11 +1,9 @@
 ﻿using Marten;
 using Ztp.Application.Dto;
-using Ztp.Domain.Products;
-using Ztp.Shared.Abstractions.Queries;
 
 namespace Ztp.Application.Products.Queries.GetProducts;
 
-public class GetProductsQueryHandler: IQueryHandler<GetProductsQuery, IReadOnlyList<ProductDto>>
+public class GetProductsQueryHandler
 {
     private readonly IDocumentSession _session;
 
@@ -16,7 +14,6 @@ public class GetProductsQueryHandler: IQueryHandler<GetProductsQuery, IReadOnlyL
 
     public async Task<IReadOnlyList<ProductDto>> HandleAsync(GetProductsQuery query)
     {
-        
         return default;
     }
 }

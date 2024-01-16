@@ -1,11 +1,10 @@
 ﻿using Ztp.Domain.Products;
 using Ztp.Domain.Shared;
-using Ztp.Shared.Abstractions.Commands;
 using Ztp.Shared.Abstractions.Marten;
 
 namespace Ztp.Application.Products.Commands.CreateProduct;
 
-public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
+public class CreateProductCommandHandler
 {
     private readonly IMartenRepository<Product> _repository;
 

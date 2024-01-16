@@ -14,7 +14,7 @@ services:
     ports:
       - "5077:80"
     depends_on:
-      - ztp.eventstore
+      - ztp.database
       - rabbitmq
 
   ztp.webjobs.domain:
@@ -23,8 +23,15 @@ services:
       dockerfile: Ztp.WebJobs.Domain/Dockerfile
     depends_on:
       - rabbitmq
+  
+  ztp.webjobs.projections:
+    build:
+      context: .
+      dockerfile: Ztp.WebJobs.Projections/Dockerfile
+    depends_on:
+      - rabbitmq
 
-  ztp.eventstore:
+  ztp.database:
     image: postgres:13
     environment:
       POSTGRES_DB: ztp

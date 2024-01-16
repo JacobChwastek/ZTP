@@ -9,7 +9,6 @@ using Weasel.Core;
 using Ztp.Domain.Customers;
 using Ztp.Domain.Orders;
 using Ztp.Domain.Products;
-using Ztp.Infrastructure.Marten.Repositories;
 using Ztp.Shared.Abstractions.Marten;
 using Ztp.Shared.Abstractions.Marten.Aggregate;
 using Ztp.Shared.Abstractions.OptimisticConcurrency;
@@ -49,7 +48,7 @@ public static class Extensions
         return services;
     }
 
-    private static IServiceCollection AddMartenRepository<T, TKey>(this IServiceCollection services,bool withAppendScope = true) where T : class, IAggregate<TKey> where TKey : StronglyTypedValue<Guid>
+    private static IServiceCollection AddMartenRepository<T, TKey>(this IServiceCollection services) where T : class, IAggregate<TKey> where TKey : StronglyTypedValue<Guid>
     {
         services.AddScoped<IMartenRepository<T>, MartenRepository<T,TKey>>();
         

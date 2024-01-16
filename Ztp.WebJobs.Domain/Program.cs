@@ -3,13 +3,13 @@ using Ztp.WebJobs.Domain;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-builder.Services.AddMassTransit(x =>
+builder.Services.AddMassTransit(c =>
 {
-    x.UsingRabbitMq((context,cfg) =>
+    c.UsingRabbitMq((context,cfg) =>
     {
-        cfg.Host("localhost", "/", h => {
-            h.Username("guest");
-            h.Password("guest");
+        cfg.Host(builder.Configuration["Messaging:RabbitMQ:Host"], builder.Configuration["Messaging:RabbitMQ:VHost"], h => {
+            h.Username(builder.Configuration["Messaging:RabbitMQ:User"]);
+            h.Password(builder.Configuration["Messaging:RabbitMQ:Password"]);
         });
 
         cfg.ConfigureEndpoints(context);

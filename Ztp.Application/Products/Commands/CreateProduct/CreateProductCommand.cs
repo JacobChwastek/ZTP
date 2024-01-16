@@ -1,10 +1,9 @@
 ﻿using FluentValidation;
 using Ztp.Domain.Shared;
-using Ztp.Shared.Abstractions.Commands;
 
 namespace Ztp.Application.Products.Commands.CreateProduct;
 
-public class CreateProductCommand(string name, string description, decimal price, Currency currency, int quantity) : ICommand
+public class CreateProductCommand(string name, string description, decimal price, Currency currency, int quantity)
 {
     public string Name { get; } = name;
     public string Description { get; } = description;

@@ -1,8 +1,6 @@
-﻿using Ztp.Shared.Abstractions.Commands;
+﻿namespace Ztp.Application.Products.Commands.DeleteProduct;
 
-namespace Ztp.Application.Products.Commands.DeleteProduct;
-
-public class DeleteProductCommandHandler(): ICommandHandler<DeleteProductCommand>
+public class DeleteProductCommandHandler
 {
     public async Task HandleAsync(DeleteProductCommand command)
     {

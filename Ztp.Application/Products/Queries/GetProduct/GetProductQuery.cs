@@ -1,9 +1,6 @@
-﻿using Ztp.Application.Dto;
-using Ztp.Shared.Abstractions.Queries;
+﻿namespace Ztp.Application.Products.Queries.GetProduct;
 
-namespace Ztp.Application.Products.Queries.GetProduct;
-
-public class GetProductQuery : IQuery<ProductDto>
+public class GetProductQuery
 {
     public Guid ProductId { get; init; }
 }

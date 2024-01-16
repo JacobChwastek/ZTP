@@ -11,7 +11,6 @@ COPY ["Ztp.Infrastructure/Ztp.Infrastructure.csproj", "Ztp.Infrastructure/"]
 COPY ["Ztp.Application/Ztp.Application.csproj", "Ztp.Application/"]
 COPY ["Ztp.Domain/Ztp.Domain.csproj", "Ztp.Domain/"]
 COPY ["Ztp.Shared.Abstractions/Ztp.Shared.Abstractions.csproj", "Ztp.Shared.Abstractions/"]
-COPY ["Ztp.Shared/Ztp.Shared.csproj", "Ztp.Shared/"]
 RUN dotnet restore "Ztp.Api/Ztp.Api.csproj"
 COPY . .
 WORKDIR "/src/Ztp.Api"

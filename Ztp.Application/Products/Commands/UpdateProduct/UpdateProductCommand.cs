@@ -1,10 +1,9 @@
 ﻿using FluentValidation;
 using Ztp.Domain.Shared;
-using Ztp.Shared.Abstractions.Commands;
 
 namespace Ztp.Application.Products.Commands.UpdateProduct;
 
-public class UpdateProductCommand(Guid id, string name, string description, decimal price, Currency currency, int quantity) : ICommand
+public class UpdateProductCommand(Guid id, string name, string description, decimal price, Currency currency, int quantity)
 {
     public Guid Id { get; } = id;
     public string Name { get; } = name;

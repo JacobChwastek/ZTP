@@ -1,4 +1,4 @@
-﻿using Ztp.Domain.Customers.Events;
+﻿using Ztp.Domain.Contracts.Customers.Events;
 using Ztp.Domain.Customers.Exceptions;
 using Ztp.Shared.Abstractions.Marten.Aggregate;
 

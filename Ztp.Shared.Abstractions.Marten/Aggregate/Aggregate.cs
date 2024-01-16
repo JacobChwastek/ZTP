@@ -1,5 +1,4 @@
 ﻿using Marten.Schema;
-using MassTransit;
 using Newtonsoft.Json;
 
 namespace Ztp.Shared.Abstractions.Marten.Aggregate;
