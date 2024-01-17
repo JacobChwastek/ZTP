@@ -8,16 +8,17 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Ztp.Domain\Ztp.Domain.csproj" />
+      <ProjectReference Include="..\Ztp.Projections\Ztp.Projections.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="11.8.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.0" />
       <PackageReference Include="Marten" Version="6.4.1" />
+      <PackageReference Include="MediatR" Version="12.2.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Customers\Queries\" />
       <Folder Include="Orders\" />
       <Folder Include="Products\" />
     </ItemGroup>

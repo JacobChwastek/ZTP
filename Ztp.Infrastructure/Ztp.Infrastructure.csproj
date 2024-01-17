@@ -30,6 +30,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Ztp.Application\Ztp.Application.csproj" />
+        <ProjectReference Include="..\Ztp.Projections\Ztp.Projections.csproj" />
     </ItemGroup>
 
 </Project>

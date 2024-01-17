@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ztp.Application.Customers.Commands;
 using MassTransit;
+using Ztp.Application.Customers.Queries;
 
 namespace Ztp.Infrastructure.MassTransit;
 
@@ -19,6 +20,11 @@ public static class Extensions
                 var url = EncodeRabbitMqUrl(configuration["Messaging:RabbitMQ:Url"]);
                 cfg.Host(url);
                 cfg.ConfigureEndpoints(context);
+            });
+
+            c.AddMediator(cfg =>
+            {
+                cfg.AddConsumers(typeof(GetCustomerQueryHandler).Assembly);
             });
         });
 
