@@ -14,6 +14,12 @@ public static class Services
             c.AddConsumers(typeof(CustomerAddedEventHandler).Assembly);
             c.UsingRabbitMq((context,cfg) =>
             {
+                cfg.ConfigureJsonSerializerOptions(opt =>
+                {
+                    opt.IncludeFields = true;   
+                    return opt;
+                });
+                
                 cfg.Host(configuration["Messaging:RabbitMQ:Host"], configuration["Messaging:RabbitMQ:VHost"], h => {
                     h.Username(configuration["Messaging:RabbitMQ:User"]);
                     h.Password(configuration["Messaging:RabbitMQ:Password"]);

@@ -13,10 +13,17 @@ public static class Extensions
     {
         services.AddMassTransit(c =>
         {
+            
             c.AddConsumers(typeof(CreateCustomerCommandConsumer).Assembly);
 
             c.UsingRabbitMq((context, cfg) =>
             {
+                cfg.ConfigureJsonSerializerOptions(opt =>
+                {
+                    opt.IncludeFields = true;
+                    return opt;
+                });
+                
                 var url = EncodeRabbitMqUrl(configuration["Messaging:RabbitMQ:Url"]);
                 cfg.Host(url);
                 cfg.ConfigureEndpoints(context);

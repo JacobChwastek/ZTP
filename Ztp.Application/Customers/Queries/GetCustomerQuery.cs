@@ -3,4 +3,4 @@ using Ztp.Application.Dto;
 
 namespace Ztp.Application.Customers.Queries;
 
-public record GetCustomerQuery(Guid Id): IRequest<CustomerDto>;
+public record GetCustomerQuery(Guid Id) : IRequest<CustomerDto>;

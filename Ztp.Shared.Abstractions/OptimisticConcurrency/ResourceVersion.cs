@@ -6,7 +6,7 @@ public interface IExpectedResourceVersionProvider
     bool TrySet(string value);
 }
 
-public class ExpectedResourceVersionProvider: IExpectedResourceVersionProvider
+public class ExpectedResourceVersionProvider : IExpectedResourceVersionProvider
 {
     public string? Value { get; private set; }
 
@@ -27,7 +27,7 @@ public interface INextResourceVersionProvider
     bool TrySet(string value);
 }
 
-public class NextResourceVersionProvider: INextResourceVersionProvider
+public class NextResourceVersionProvider : INextResourceVersionProvider
 {
     public string? Value { get; private set; }
 

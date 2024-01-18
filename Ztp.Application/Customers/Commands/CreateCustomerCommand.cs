@@ -2,7 +2,4 @@
 
 namespace Ztp.Application.Customers.Commands;
 
-public class CreateCustomerCommand(string name): ICommand
-{
-    public string Name { get; } = name;
-}
+public record CreateCustomerCommand(string FirstName, string LastName, string Email): ICommand;

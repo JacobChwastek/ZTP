@@ -3,7 +3,6 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,8 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Customers\Rules\" />
-      <Folder Include="Shared\DomainEvents\" />
+      <Folder Include="Orders\Specifications\" />
     </ItemGroup>
 
     <ItemGroup>

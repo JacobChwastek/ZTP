@@ -16,7 +16,8 @@ public static class Extensions
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Extensions).Assembly));
 
         services.AddScoped<ICustomerRepository, CustomerRepository>();
-        
+        services.AddScoped<IProductRepository, ProductRepository>();
+
         return services;
     }
 }

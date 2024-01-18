@@ -1,6 +1,9 @@
-﻿namespace Ztp.Application.Products.Queries.GetProduct;
+﻿using MediatR;
+using Ztp.Application.Dto;
 
-public class GetProductQuery
+namespace Ztp.Application.Products.Queries.GetProduct;
+
+public record GetProductQuery : IRequest<ProductDto>
 {
     public Guid ProductId { get; init; }
 }

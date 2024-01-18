@@ -26,7 +26,11 @@ public class GetCustomerQueryHandler : IRequestHandler<GetCustomerQuery, Custome
         return new CustomerDto
         {
             Id = customer.Id,
-            Name = customer.Name
+            FirstName = customer.FirstName,
+            LastName = customer.LastName,
+            Email = customer.Email,
+            CreatedAt = customer.CreatedAt,
+            UpdatedAt = customer.UpdatedAt
         };
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Ztp.Shared.Abstractions.Marten.Aggregate;
+using Ztp.Shared.Contracts;
 
 namespace Ztp.Domain.Orders;
 

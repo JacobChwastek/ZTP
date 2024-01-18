@@ -11,8 +11,7 @@ public interface ICustomerRepository
     Task UpdateAsync(Customer customer, CancellationToken cancellationToken = default);
 }
 
-
-public class CustomerRepository: ICustomerRepository
+public class CustomerRepository : ICustomerRepository
 {
     private readonly ProjectionsDbContext _projectionsDbContext;
 
@@ -23,7 +22,8 @@ public class CustomerRepository: ICustomerRepository
 
     public async Task<Customer> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _projectionsDbContext.Customers.SingleOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
+        return await _projectionsDbContext.Customers.SingleOrDefaultAsync(x => x.Id == id,
+            cancellationToken: cancellationToken);
     }
 
     public async Task<List<Customer>> GetAsync(CancellationToken cancellationToken = default)

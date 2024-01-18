@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztp.Domain.Contracts", "Ztp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztp.Projections", "Ztp.Projections\Ztp.Projections.csproj", "{04D33ADD-35FA-4767-B39A-7F0CEF1C1329}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ztp.Shared.Contracts", "Ztp.Shared.Contracts\Ztp.Shared.Contracts.csproj", "{D31774D1-4B16-4C1B-A4BD-51629341ADFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{04D33ADD-35FA-4767-B39A-7F0CEF1C1329}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04D33ADD-35FA-4767-B39A-7F0CEF1C1329}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04D33ADD-35FA-4767-B39A-7F0CEF1C1329}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D31774D1-4B16-4C1B-A4BD-51629341ADFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D31774D1-4B16-4C1B-A4BD-51629341ADFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D31774D1-4B16-4C1B-A4BD-51629341ADFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D31774D1-4B16-4C1B-A4BD-51629341ADFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +122,7 @@ Global
 		{A521A383-621A-45E2-936C-5DB8E3D0E64D} = {C7DFEED1-EE13-4F70-A024-F9AD4744A1D4}
 		{4E01F986-75E7-4431-8312-A184BC7112D8} = {B8E93546-A9D3-4FFD-92BE-8E591C7D8B5A}
 		{04D33ADD-35FA-4767-B39A-7F0CEF1C1329} = {B8E93546-A9D3-4FFD-92BE-8E591C7D8B5A}
+		{D31774D1-4B16-4C1B-A4BD-51629341ADFA} = {C7DFEED1-EE13-4F70-A024-F9AD4744A1D4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A3769217-B137-4210-BA18-0D666F16484A}

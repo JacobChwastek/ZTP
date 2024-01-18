@@ -39,7 +39,7 @@ public class CustomersModule : IApiModule
             .MapPost("/", async ([FromBody] CreateCustomerCommand createCustomer, IPublishEndpoint publishEndpoint) =>
             {
                 await publishEndpoint.Publish(createCustomer);
-                return Results.Created();
+                return Results.Ok();
             });
         
 

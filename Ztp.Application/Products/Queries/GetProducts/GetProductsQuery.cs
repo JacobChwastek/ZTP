@@ -1,6 +1,6 @@
-﻿namespace Ztp.Application.Products.Queries.GetProducts;
+﻿using MediatR;
+using Ztp.Application.Dto;
 
-public class GetProductsQuery
-{
-    
-}
+namespace Ztp.Application.Products.Queries.GetProducts;
+
+public record GetProductsQuery : IRequest<IReadOnlyList<ProductDto>>;

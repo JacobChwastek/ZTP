@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MassTransit;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using Ztp.Api.Filters;
 using Ztp.Application.Dto;
 using Ztp.Application.Products.Commands.CreateProduct;
 using Ztp.Application.Products.Commands.UpdateProduct;
+using Ztp.Application.Products.Queries.GetProduct;
+using Ztp.Application.Products.Queries.GetProducts;
 
 namespace Ztp.Api.Modules.Products;
 
@@ -17,36 +21,36 @@ public class ProductsModule : IApiModule
             .WithOpenApi();
 
         group
-            .MapGet("/", async () =>
+            .MapGet("/", async (IMediator mediator) =>
             {
-                // var products = await queryDispatcher.QueryAsync(new GetProductsQuery());
-                return Results.Ok();
+                var products = await mediator.Send(new GetProductsQuery());
+                return Results.Ok(products);
             })
             .CacheOutput(builder => builder.Tag("Products"))
-            .Produces(StatusCodes.Status200OK, typeof(IReadOnlyList<ProductDto>))
-            .Produces(StatusCodes.Status404NotFound, typeof(EmptyResult));
+            .Produces(StatusCodes.Status200OK, typeof(IReadOnlyList<ProductDto>));
 
         group
             .MapGet("/{productId:guid}",
-                async ([FromRoute] Guid productId) =>
+                async (Guid productId, IMediator mediator) =>
                 {
-                    // var product = await queryDispatcher.QueryAsync(new GetProductQuery
-                    // {
-                    //     ProductId = productId
-                    // });
+                    var product = await mediator.Send(new GetProductQuery { ProductId = productId });
 
-                    return Results.Ok();
+                    return product is null ? Results.NotFound() : Results.Ok(product);
                 })
             .CacheOutput(p =>
             {
                 p.SetVaryByQuery(["productId"]);
                 p.Tag("Products");
-            });
+            })
+            .Produces(StatusCodes.Status200OK, typeof(ProductDto))
+            .Produces(StatusCodes.Status404NotFound, typeof(EmptyResult));
 
         group
             .MapPost("/",
-                async ([FromBody] CreateProductCommand createProduct, IOutputCacheStore cache, CancellationToken token) =>
+                async ([FromBody] CreateProductCommand createProduct, IPublishEndpoint publishEndpoint,
+                    IOutputCacheStore cache, CancellationToken token) =>
                 {
+                    await publishEndpoint.Publish(createProduct, token);
                     await cache.EvictByTagAsync("Products", token);
                     return Results.Ok();
                 })
@@ -54,7 +58,8 @@ public class ProductsModule : IApiModule
 
         group
             .MapPut("/",
-                async ([FromBody] UpdateProductCommand updateProduct, IOutputCacheStore cache, CancellationToken token) =>
+                async ([FromBody] UpdateProductCommand updateProduct, IOutputCacheStore cache,
+                    CancellationToken token) =>
                 {
                     await cache.EvictByTagAsync("Products", token);
                     return Results.Ok();

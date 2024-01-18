@@ -1,29 +1,23 @@
-﻿using Ztp.Domain.Products;
-using Ztp.Domain.Shared;
+﻿using MassTransit;
+using Ztp.Domain.Products;
 using Ztp.Shared.Abstractions.Marten;
+using Ztp.Shared.Abstractions.Shared;
 
 namespace Ztp.Application.Products.Commands.CreateProduct;
 
-public class CreateProductCommandHandler
+public class CreateProductCommandHandler(IMartenRepository<Product> repository) : IConsumer<CreateProductCommand>
 {
-    private readonly IMartenRepository<Product> _repository;
-
-    public CreateProductCommandHandler(IMartenRepository<Product> repository)
+    public async Task Consume(ConsumeContext<CreateProductCommand> context)
     {
-        _repository = repository;
-    }
-
-    public async Task HandleAsync(CreateProductCommand command)
-    {
-        var product = Product.New(new ProductDetails
+        var productDetails = new ProductDetails
         {
-            Name = new ProductName(command.Name),
-            Description = new ProductDescription(command.Description),
-            Price = new Money(command.Price, command.Currency),
-            InventoryQuantity = new InventoryQuantity(command.Quantity),
-            Availability = command.Quantity > 0
-        });
-        
-        await _repository.Add(product);
+            Name = context.Message.Name,
+            Description = context.Message.Description,
+            InventoryQuantity = context.Message.Quantity,
+            Price = new Money(context.Message.Amount, context.Message.Currency)
+        };
+
+        var product = Product.New(productDetails);
+        await repository.Add(product);
     }
 }

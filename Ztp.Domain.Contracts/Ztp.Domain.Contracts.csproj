@@ -3,11 +3,11 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Ztp.Shared.Abstractions\Ztp.Shared.Abstractions.csproj" />
+      <ProjectReference Include="..\Ztp.Shared.Contracts\Ztp.Shared.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

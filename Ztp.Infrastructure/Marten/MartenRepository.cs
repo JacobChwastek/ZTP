@@ -2,6 +2,7 @@
 using MassTransit;
 using Ztp.Shared.Abstractions.Marten;
 using Ztp.Shared.Abstractions.Marten.Aggregate;
+using Ztp.Shared.Contracts;
 
 namespace Ztp.Infrastructure.Marten;
 
@@ -31,7 +32,7 @@ public class MartenRepository<TEntity, TKey> : IMartenRepository<TEntity>
 
         foreach (var @event in events)
         {
-            await _publishEndpoint.Publish(@event, @event.GetType(), ct);
+            await _publishEndpoint.Publish(@event, ct);
         }
 
         await _documentSession.SaveChangesAsync(ct).ConfigureAwait(false);

@@ -17,10 +17,14 @@ public class GetCustomersQueryHandler : IRequestHandler<GetCustomersQuery, List<
     {
         var customers = await _customerRepository.GetAsync(cancellationToken);
 
-        return customers.Select(x => new CustomerDto
+        return customers.Select(c => new CustomerDto
         {
-            Id = x.Id,
-            Name = x.Name
+            Id = c.Id,
+            FirstName = c.FirstName,
+            LastName = c.LastName,
+            Email = c.Email,
+            CreatedAt = c.CreatedAt,
+            UpdatedAt = c.UpdatedAt
         }).ToList();
     }
 }
