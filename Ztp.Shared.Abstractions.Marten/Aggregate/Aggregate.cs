@@ -6,7 +6,7 @@ using Ztp.Shared.Contracts;
 
 namespace Ztp.Shared.Abstractions.Marten.Aggregate;
 
-public abstract class Aggregate<TKey> : IAggregate<TKey> where TKey : StronglyTypedValue<Guid>
+public abstract class Aggregate<TKey> : IAggregate<TKey> where TKey : StronglyTypedValue<Guid>, IAggregateIdentity
 {
     public TKey Id { get; set; } = default!;
 

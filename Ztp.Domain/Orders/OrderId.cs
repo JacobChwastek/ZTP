@@ -1,9 +1,8 @@
-﻿using Ztp.Shared.Abstractions.Marten.Aggregate;
-using Ztp.Shared.Contracts;
+﻿using Ztp.Shared.Contracts;
 
 namespace Ztp.Domain.Orders;
 
-public sealed class OrderId : StronglyTypedValue<Guid>
+public sealed class OrderId : StronglyTypedValue<Guid>, IAggregateIdentity
 {
     public OrderId(Guid value) : base(value)
     {

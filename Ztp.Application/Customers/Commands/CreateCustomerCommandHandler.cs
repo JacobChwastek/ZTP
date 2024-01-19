@@ -10,6 +10,6 @@ public class CreateCustomerCommandConsumer(IMartenRepository<Customer> repositor
     {
         var customer = Customer.New(context.Message.FirstName, context.Message.LastName, context.Message.Email);
 
-        await repository.Add(customer);
+        await repository.AddAsync(customer);
     }
 }

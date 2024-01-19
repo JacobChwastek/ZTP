@@ -31,7 +31,8 @@ public static class Services
         
         services.AddDbContext<ProjectionsDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("Projections"));
+            // options.UseNpgsql(configuration.GetConnectionString("Projections"));
+            options.UseNpgsql(configuration.GetConnectionString("ProjectionsLocalhost"));
         });
         
         services.AddHostedService<Worker>();

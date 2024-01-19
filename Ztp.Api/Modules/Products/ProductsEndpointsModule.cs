@@ -30,13 +30,12 @@ public class ProductsModule : IApiModule
             .Produces(StatusCodes.Status200OK, typeof(IReadOnlyList<ProductDto>));
 
         group
-            .MapGet("/{productId:guid}",
-                async (Guid productId, IMediator mediator) =>
-                {
-                    var product = await mediator.Send(new GetProductQuery { ProductId = productId });
+            .MapGet("/{productId:guid}", async (Guid productId, IMediator mediator) =>
+            {
+                var product = await mediator.Send(new GetProductQuery { ProductId = productId });
 
-                    return product is null ? Results.NotFound() : Results.Ok(product);
-                })
+                return product is null ? Results.NotFound() : Results.Ok(product);
+            })
             .CacheOutput(p =>
             {
                 p.SetVaryByQuery(["productId"]);
@@ -46,9 +45,7 @@ public class ProductsModule : IApiModule
             .Produces(StatusCodes.Status404NotFound, typeof(EmptyResult));
 
         group
-            .MapPost("/",
-                async ([FromBody] CreateProductCommand createProduct, IPublishEndpoint publishEndpoint,
-                    IOutputCacheStore cache, CancellationToken token) =>
+            .MapPost("/", async ([FromBody] CreateProductCommand createProduct, IPublishEndpoint publishEndpoint, IOutputCacheStore cache, CancellationToken token) =>
                 {
                     await publishEndpoint.Publish(createProduct, token);
                     await cache.EvictByTagAsync("Products", token);
@@ -74,7 +71,15 @@ public class ProductsModule : IApiModule
                     return Results.Ok();
                 })
             .CacheOutput(p => p.NoCache());
-
+        
+        group
+            .MapPost("/{productId:guid}/add-to-cart",
+                async ([FromRoute] Guid productId, IOutputCacheStore cache, CancellationToken token) =>
+                {
+                    await cache.EvictByTagAsync("Products", token);
+                    return Results.Ok();
+                });
+        
         return group;
     }
 }

@@ -51,7 +51,7 @@ public static class Extensions
     }
 
     private static IServiceCollection AddMartenRepository<T, TKey>(this IServiceCollection services)
-        where T : class, IAggregate<TKey> where TKey : StronglyTypedValue<Guid>
+        where T : class, IAggregate<TKey> where TKey : StronglyTypedValue<Guid>, IAggregateIdentity
     {
         services.AddScoped<IMartenRepository<T>, MartenRepository<T, TKey>>();
 

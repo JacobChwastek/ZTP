@@ -26,6 +26,8 @@ public class ProjectionsDbContext(DbContextOptions<ProjectionsDbContext> options
         {
             entity.ToTable("products");
             entity.HasKey(x => x.Id);
+            entity.HasQueryFilter(x => !x.IsDeleted);
+            
             entity
                 .Property(x => x.Quantity)
                 .IsRequired();
@@ -33,25 +35,16 @@ public class ProjectionsDbContext(DbContextOptions<ProjectionsDbContext> options
                 .Property(x => x.Name)
                 .IsRequired()
                 .HasMaxLength(200);
+
+            entity
+                .Property(x => x.IsDeleted)
+                .HasDefaultValue(false);
+            
             entity
                 .Property(x => x.Currency)
                 .HasConversion(
                     v => v.ToString(),
                     v => (Currency)Enum.Parse(typeof(Currency), v));
         });
-
-        // modelBuilder.Entity<Order>(entity =>
-        // {
-        //     entity.ToTable("orders");
-        //     entity.HasKey(x => x.Id);
-        //     
-        // });
-        //
-        // modelBuilder.Entity<Order>()
-        //     .ToTable("orders")
-        //     .HasMany(o => o.OrderProducts)
-        //     .WithOne(o => o.Order)
-        //     .HasForeignKey(x => x.OrderId);
-        //
     }
 }

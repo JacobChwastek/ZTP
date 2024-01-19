@@ -7,7 +7,7 @@ using Ztp.Shared.Contracts;
 namespace Ztp.Infrastructure.Marten;
 
 public class MartenRepository<TEntity, TKey> : IMartenRepository<TEntity>
-    where TKey : StronglyTypedValue<Guid>
+    where TKey : StronglyTypedValue<Guid>, IAggregateIdentity
     where TEntity : class, IAggregate<TKey>
 {
     private readonly IDocumentSession _documentSession;
@@ -19,9 +19,9 @@ public class MartenRepository<TEntity, TKey> : IMartenRepository<TEntity>
         _publishEndpoint = publishEndpoint;
     }
 
-    public Task<TEntity?> Find(Guid id, CancellationToken ct) => _documentSession.Events.AggregateStreamAsync<TEntity>(id, token: ct);
+    public Task<TEntity?> FindAsync(Guid id, CancellationToken ct) => _documentSession.Events.AggregateStreamAsync<TEntity>(id, token: ct);
 
-    public async Task<long> Add(TEntity aggregate, CancellationToken ct = default)
+    public async Task<long> AddAsync(TEntity aggregate, CancellationToken ct = default)
     {
         var events = aggregate.DequeueUncommittedEvents();
 
@@ -40,7 +40,7 @@ public class MartenRepository<TEntity, TKey> : IMartenRepository<TEntity>
         return events.Length;
     }
 
-    public async Task<long> Update(TEntity aggregate, long? expectedVersion = null, CancellationToken ct = default)
+    public async Task<long> UpdateAsync(TEntity aggregate, long? expectedVersion = null, CancellationToken ct = default)
     {
         var events = aggregate.DequeueUncommittedEvents();
 
@@ -58,5 +58,5 @@ public class MartenRepository<TEntity, TKey> : IMartenRepository<TEntity>
         return nextVersion;
     }
 
-    public Task<long> Delete(TEntity aggregate, long? expectedVersion = null, CancellationToken ct = default) => Update(aggregate, expectedVersion, ct);
+    public Task<long> DeleteAsync(TEntity aggregate, long? expectedVersion = null, CancellationToken ct = default) => UpdateAsync(aggregate, expectedVersion, ct);
 }

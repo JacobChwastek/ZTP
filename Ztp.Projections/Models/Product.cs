@@ -13,6 +13,8 @@ public class Product
     public int Quantity { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
+
+    public bool IsDeleted { get; set; }
     
     [NotMapped]
     public bool Availability => Quantity > 0;

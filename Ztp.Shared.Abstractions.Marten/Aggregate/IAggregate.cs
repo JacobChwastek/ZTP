@@ -2,7 +2,7 @@
 
 namespace Ztp.Shared.Abstractions.Marten.Aggregate;
 
-public interface IAggregate<out TKey> where TKey : StronglyTypedValue<Guid>
+public interface IAggregate<TKey> where TKey : StronglyTypedValue<Guid>, IAggregateIdentity
 {
     TKey Id { get; }
     

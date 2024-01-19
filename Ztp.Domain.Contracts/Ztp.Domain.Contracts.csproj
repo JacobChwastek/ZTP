@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Ztp.Shared.Contracts\Ztp.Shared.Contracts.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="v0\Cart\Commands\" />
+    </ItemGroup>
+
 </Project>

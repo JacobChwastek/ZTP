@@ -13,11 +13,11 @@ public class CreateProductCommandHandler(IMartenRepository<Product> repository) 
         {
             Name = context.Message.Name,
             Description = context.Message.Description,
-            InventoryQuantity = context.Message.Quantity,
+            Quantity = context.Message.Quantity,
             Price = new Money(context.Message.Amount, context.Message.Currency)
         };
 
         var product = Product.New(productDetails);
-        await repository.Add(product);
+        await repository.AddAsync(product);
     }
 }
